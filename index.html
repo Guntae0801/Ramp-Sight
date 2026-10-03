@@ -501,7 +501,7 @@ p{text-wrap:pretty}
     <div><div class="v mono">100대</div><div class="l">단말기 30대 시범 운영 규모</div></div>
     <div><div class="v mono">15분↓</div><div class="l">편당 탐색·대기 목표 단축</div></div>
     <div><div class="v mono">3개월</div><div class="l">PoC 표준 기간</div></div>
-    <div><div class="v mono">8,800만</div><div class="l">100대 1년차 도입 비용</div></div>
+    <div><div class="v mono">7,480만</div><div class="l">100대 1년차 도입 비용</div></div>
   </div>
 
   <div class="rs-embed" id="rs-embed">
@@ -594,29 +594,30 @@ p{text-wrap:pretty}
           <rect x="0" y="98" width="28" height="14" rx="3" fill="#26313B"/>
           <rect x="172" y="98" width="28" height="14" rx="3" fill="#26313B"/>
         </svg>
-        <p class="device-dim mono">92 × 60 × 28 mm</p>
+        <p class="device-dim mono">85 × 55 × 28 mm · 설계 목표</p>
         <div class="spec-tbl">
           <div class="spec-row"><span class="k">측위</span><span class="v mono">GPS + BLE</span></div>
-          <div class="spec-row"><span class="k">방수·방진</span><span class="v mono">IP67</span></div>
-          <div class="spec-row"><span class="k">배터리</span><span class="v mono">최대 18개월</span></div>
+          <div class="spec-row"><span class="k">방수·방진</span><span class="v mono">방수형 IP67 · 실내형 IP54</span></div>
+          <div class="spec-row"><span class="k">단말기 전원</span><span class="v mono">장비 전원 + 백업 배터리</span></div>
+          <div class="spec-row"><span class="k">비콘 태그 배터리</span><span class="v mono">3~5년</span></div>
           <div class="spec-row"><span class="k">통신 주기</span><span class="v mono">5초</span></div>
           <div class="spec-row"><span class="k">위치 정확도</span><span class="v mono">구역 단위</span></div>
-          <div class="spec-row"><span class="k">부착 방식</span><span class="v mono">볼트·마운트</span></div>
+          <div class="spec-row"><span class="k">부착 방식</span><span class="v mono">접착 · 드릴 없음</span></div>
           <div class="spec-row"><span class="k">동작 온도</span><span class="v mono">-30°C ~ 65°C</span></div>
         </div>
         <div class="device-cap">
-          <span><b>동력 장비</b> 볼트 체결 · 5분</span>
-          <span><b>비동력 장비</b> 접착 마운트 · 2분</span>
-          <span><b>인증</b> KC 전파인증 완료</span>
+          <span><b>동력 장비</b> 전원형 단말기 · 접착</span>
+          <span><b>비동력 장비</b> 비콘 태그 · 접착</span>
+          <span><b>인증</b> KC 전파인증 후 납품</span>
         </div>
       </div>
       <div>
         <p class="kicker">하드웨어</p>
-        <h2 style="font-size:clamp(21px,2.4vw,28px);">보조배터리 크기 하나로 끝.</h2>
+        <h2 style="font-size:clamp(21px,2.4vw,28px);">신용카드 크기 하나로 끝.</h2>
         <p style="color:var(--ink-dim);font-size:15.5px;line-height:1.78;margin:0 0 20px;">
-          동력 장비는 볼트 체결로 5분이면 부착됩니다. 전원이 없는 스텝카나 견인봉에는
-          자체 배터리형 저전력 태그를 사용합니다. 제트 블라스트, 강우, 영하 환경, 진동을
-          견디는 Rugged 하우징입니다.
+          동력 장비에는 장비 전원으로 동작하는 단말기를 붙입니다. 구멍을 뚫지 않고 접착으로
+          고정하며, 시동을 끄면 장비 배터리를 쓰지 않습니다. 전원이 없는 돌리나 견인봉에는
+          3~5년 가는 비콘 태그를 붙이고, 끄는 토잉카의 단말기가 위치를 대신 알려줍니다.
         </p>
         <p style="color:var(--ink-dim);font-size:15.5px;line-height:1.78;margin:0;">
           지하·터널 구간은 GPS가 끊기는 지점에 벽면 비콘 스캐너를 설치해 구역 단위
@@ -744,16 +745,29 @@ p{text-wrap:pretty}
     <div class="sec-head">
       <p class="kicker">가격</p>
       <h2>장비 한 대 값으로 플릿 전체를 봅니다.</h2>
-      <p>장비 100대 기준입니다. 대수에 따라 조정됩니다.</p>
+      <p>장비 100대(동력 40대, 비동력 60대) 기준입니다. 대수와 구성에 따라 조정됩니다.</p>
     </div>
     <div class="price">
       <div class="price-rows">
-        <div class="price-row"><span class="lbl">단말기</span><span class="sub">대당 28만원 · 1회</span><span class="val mono">2,800만원</span></div>
-        <div class="price-row"><span class="lbl">관제 구독</span><span class="sub">대당 월 5만원</span><span class="val mono">연 6,000만원</span></div>
+        <div class="price-row"><span class="lbl">전원형 단말기</span><span class="sub">동력 장비 40대 · 대당 28만원 · 1회</span><span class="val mono">1,120만원</span></div>
+        <div class="price-row"><span class="lbl">비콘 태그</span><span class="sub">비동력 장비 60대 · 대당 4만원 · 1회</span><span class="val mono">240만원</span></div>
+        <div class="price-row"><span class="lbl">주차장·지하 수신기</span><span class="sub">4대 · 대당 30만원 · 1회</span><span class="val mono">120만원</span></div>
+        <div class="price-row"><span class="lbl">관제 구독</span><span class="sub">장비 100대 · 대당 월 5만원</span><span class="val mono">연 6,000만원</span></div>
         <div class="price-row"><span class="lbl">설치 · 인증 대행</span><span class="sub">전파인증 · 반입 승인</span><span class="val">별도 견적</span></div>
       </div>
-      <div class="price-total"><span class="lbl">1년차 합계</span><span class="val mono">8,800만원</span></div>
+      <div class="price-total"><span class="lbl">1년차 합계</span><span class="val mono">7,480만원</span></div>
       <p class="price-note">미국산 일반 급유차 한 대가 8~10억입니다. 장비 한 대 값의 10% 수준으로 보유 장비 전체를 가시화합니다. 도입은 장비 30대 규모 3개월 시범 운영으로 시작합니다.</p>
+    </div>
+    <div class="price" style="margin-top:16px;">
+      <div class="price-rows">
+        <div class="price-row"><span class="lbl">시범 운영 (MVP)</span><span class="sub">장비 30대 · 3개월</span></div>
+        <div class="price-row"><span class="lbl">전원형 단말기</span><span class="sub">12대 · 대당 28만원</span><span class="val mono">336만원</span></div>
+        <div class="price-row"><span class="lbl">비콘 태그</span><span class="sub">18대 · 대당 4만원</span><span class="val mono">72만원</span></div>
+        <div class="price-row"><span class="lbl">주차장·지하 수신기</span><span class="sub">2대 · 대당 30만원</span><span class="val mono">60만원</span></div>
+        <div class="price-row"><span class="lbl">관제 구독</span><span class="sub">30대 · 대당 월 5만원 · 3개월</span><span class="val mono">450만원</span></div>
+      </div>
+      <div class="price-total"><span class="lbl">시범 운영 합계</span><span class="val mono">918만원</span></div>
+      <p class="price-note">시범 운영 단말기는 본 도입 때 그대로 이어서 씁니다. 설치·인증 대행은 별도 견적입니다.</p>
     </div>
   </div>
 </section>
