@@ -477,8 +477,6 @@ p{text-wrap:pretty}
 .hw-rules div{border-top:2px solid var(--amber-dim);padding-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.7;}
 .hw-rules b{display:block;color:var(--ink);font-size:14.5px;margin-bottom:4px;}
 @media (max-width:860px){.lineup,.hw-rules{grid-template-columns:minmax(0,1fr);}}
-.mvp-embed{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
-.mvp-embed iframe{display:block;width:100%;height:900px;border:0;background:#0B0F13}
 </style>
 </head>
 <body>
@@ -489,7 +487,7 @@ p{text-wrap:pretty}
     <div class="nav-links">
       <a href="#problem">문제</a>
       <a href="#product">제품</a>
-      <a href="#mvp">MVP 비용</a>
+      <a href="mvp.html">MVP 비용</a>
       <a href="#cases">도입 사례</a>
       <a href="#price">가격</a>
       <a class="btn btn-sm" href="#demo">데모 요청</a>
@@ -737,21 +735,6 @@ p{text-wrap:pretty}
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="mvp">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="kicker">MVP 비용</p>
-      <h2>시범 운영에 들어가는 장비와 비용.</h2>
-      <p>동력 장비 10대, 비동력 장비 30대, 주차장 수신기 2대 기준입니다. 어떤 제품을 어디에 붙이고, 무엇을 얼마에 사는지 정리했습니다.</p>
-    </div>
-    <div class="mvp-embed">
-      <iframe id="mvp-frame" src="mvp.html" title="RAMP·SIGHT 하드웨어 설계와 MVP 구매 비용" loading="lazy"></iframe>
-    </div>
-    <p class="rsd-cap"><a href="mvp.html" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:none;font-weight:600">전체 화면으로 열기 ↗</a></p>
-<script>(function(){var f=document.getElementById('mvp-frame');if(!f)return;function fit(){try{var d=f.contentDocument;if(d&&d.documentElement){f.style.height=Math.max(d.documentElement.scrollHeight,d.body?d.body.scrollHeight:0)+'px';f.setAttribute('scrolling','no');}}catch(e){}}f.addEventListener('load',function(){fit();setTimeout(fit,600);setTimeout(fit,2000);});window.addEventListener('resize',fit);})();</script>
   </div>
 </section>
 
