@@ -466,6 +466,17 @@ p{text-wrap:pretty}
 .rs-embed iframe{display:block;width:100%;height:820px;border:0;background:#0B0F13}
 @media (max-width:1100px){.rs-embed iframe{height:760px}}
 @media (max-width:759px){.rs-embed iframe{height:720px}.rs-embed-bar span:not(.dot-live){display:none}}
+
+.lineup{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:28px 0 8px;}
+.lineup .lu{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px;min-width:0;}
+.lineup .lu .code{font-size:12px;color:var(--amber);font-weight:600;letter-spacing:.04em;}
+.lineup .lu h3{font-size:18px;margin:6px 0 4px;}
+.lineup .lu .for{font-size:13.5px;color:var(--ink-dim);line-height:1.65;margin:0 0 14px;}
+.lineup .lu .tagl{display:inline-block;font-size:11.5px;padding:3px 9px;border-radius:2px;background:var(--amber-wash);color:var(--amber);border:1px solid var(--amber-dim);margin-bottom:12px;}
+.hw-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:16px 0 36px;}
+.hw-rules div{border-top:2px solid var(--amber-dim);padding-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.7;}
+.hw-rules b{display:block;color:var(--ink);font-size:14.5px;margin-bottom:4px;}
+@media (max-width:860px){.lineup,.hw-rules{grid-template-columns:minmax(0,1fr);}}
 </style>
 </head>
 <body>
@@ -498,7 +509,7 @@ p{text-wrap:pretty}
   <p class="hero-note">후장착 방식<span class="sep">·</span>장비 교체 불필요<span class="sep">·</span>국내 전파인증·반입 승인 대행<span class="sep">·</span>당일 A/S</p>
 
   <div class="stripe">
-    <div><div class="v mono">100대</div><div class="l">단말기 30대 시범 운영 규모</div></div>
+    <div><div class="v mono">40대</div><div class="l">3개월 시범 운영 규모</div></div>
     <div><div class="v mono">15분↓</div><div class="l">편당 탐색·대기 목표 단축</div></div>
     <div><div class="v mono">3개월</div><div class="l">PoC 표준 기간</div></div>
     <div><div class="v mono">7,480만</div><div class="l">100대 1년차 도입 비용</div></div>
@@ -624,6 +635,50 @@ p{text-wrap:pretty}
           위치로 보완합니다.
         </p>
       </div>
+    </div>
+
+    <div class="lineup">
+      <div class="lu">
+        <span class="code mono">RS-T1W</span>
+        <h3>전원형 단말기 · 방수형</h3>
+        <span class="tagl">비 맞는 장비 · IP67</span>
+        <p class="for">토잉카, 벨트로더처럼 운전석이 뚫린 장비용. FRP 지붕은 천장 아래에, 철판 지붕은 지붕 위에 붙입니다.</p>
+        <div class="spec-tbl">
+          <div class="spec-row"><span class="k">크기</span><span class="v mono">85 × 55 × 28 mm · 약 120 g</span></div>
+          <div class="spec-row"><span class="k">측위 · 통신</span><span class="v mono">GPS 5초 · LTE-M</span></div>
+          <div class="spec-row"><span class="k">입력 전원</span><span class="v mono">9~100 V</span></div>
+          <div class="spec-row"><span class="k">전원 모듈</span><span class="v mono">퓨즈 박스 옆 별도</span></div>
+        </div>
+      </div>
+      <div class="lu">
+        <span class="code mono">RS-T1C</span>
+        <h3>전원형 단말기 · 실내형</h3>
+        <span class="tagl">밀폐 운전실 · IP54</span>
+        <p class="for">급유차, 버스, 케이터링, 하이로더처럼 운전실이 막힌 장비용. 블랙박스처럼 대시보드 윗면에 붙입니다.</p>
+        <div class="spec-tbl">
+          <div class="spec-row"><span class="k">크기</span><span class="v mono">80 × 50 × 22 mm · 약 90 g</span></div>
+          <div class="spec-row"><span class="k">측위 · 통신</span><span class="v mono">GPS 5초 · LTE-M</span></div>
+          <div class="spec-row"><span class="k">입력 전원</span><span class="v mono">9~100 V</span></div>
+          <div class="spec-row"><span class="k">전원 모듈</span><span class="v mono">본체 일체형</span></div>
+        </div>
+      </div>
+      <div class="lu">
+        <span class="code mono">RS-B1</span>
+        <h3>비콘 태그</h3>
+        <span class="tagl">끌려다니는 장비 · IP67</span>
+        <p class="for">돌리, 컨테이너 카트, 견인식 GPU·스텝카, 토바용. 자기 번호만 1초에 한 번 내보내고, 끄는 토잉카의 단말기가 위치를 대신 알려줍니다.</p>
+        <div class="spec-tbl">
+          <div class="spec-row"><span class="k">크기</span><span class="v mono">90 × 50 × 18 mm · 약 60 g</span></div>
+          <div class="spec-row"><span class="k">방식</span><span class="v mono">BLE 비콘 · 1초 1회</span></div>
+          <div class="spec-row"><span class="k">도달 거리</span><span class="v mono">야외 약 30 m</span></div>
+          <div class="spec-row"><span class="k">배터리</span><span class="v mono">내장 · 3~5년</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hw-rules">
+      <div><b>장비 배터리를 쓰지 않습니다</b>시동이 켜졌을 때만 장비 전원을 받고(약 1 W), 시동을 끄면 완전히 끊깁니다. 이후에는 내장 배터리로 절전 보고합니다.</div>
+      <div><b>구멍을 뚫지 않습니다</b>VHB 접착으로 고정하고 기존 배선 구멍을 같이 씁니다. 지붕 위에 붙일 때는 낙하 방지 줄을 걸어 FOD를 막습니다.</div>
+      <div><b>주차장·지하도 잡습니다</b>GPS가 안 되는 곳은 천장의 PoE 수신기가 비콘 신호를 받아 구역 단위로 위치를 알려줍니다.</div>
     </div>
 
     <div class="feats">
@@ -756,18 +811,18 @@ p{text-wrap:pretty}
         <div class="price-row"><span class="lbl">설치 · 인증 대행</span><span class="sub">전파인증 · 반입 승인</span><span class="val">별도 견적</span></div>
       </div>
       <div class="price-total"><span class="lbl">1년차 합계</span><span class="val mono">7,480만원</span></div>
-      <p class="price-note">미국산 일반 급유차 한 대가 8~10억입니다. 장비 한 대 값의 10% 수준으로 보유 장비 전체를 가시화합니다. 도입은 장비 30대 규모 3개월 시범 운영으로 시작합니다.</p>
+      <p class="price-note">미국산 일반 급유차 한 대가 8~10억입니다. 장비 한 대 값의 10% 수준으로 보유 장비 전체를 가시화합니다. 도입은 장비 40대 규모 3개월 시범 운영으로 시작합니다.</p>
     </div>
     <div class="price" style="margin-top:16px;">
       <div class="price-rows">
-        <div class="price-row"><span class="lbl">시범 운영 (MVP)</span><span class="sub">장비 30대 · 3개월</span></div>
-        <div class="price-row"><span class="lbl">전원형 단말기</span><span class="sub">12대 · 대당 28만원</span><span class="val mono">336만원</span></div>
-        <div class="price-row"><span class="lbl">비콘 태그</span><span class="sub">18대 · 대당 4만원</span><span class="val mono">72만원</span></div>
+        <div class="price-row"><span class="lbl">시범 운영 (MVP)</span><span class="sub">장비 40대(동력 10 · 비동력 30) · 3개월</span></div>
+        <div class="price-row"><span class="lbl">전원형 단말기</span><span class="sub">10대(방수형 4 · 실내형 6) · 대당 28만원</span><span class="val mono">280만원</span></div>
+        <div class="price-row"><span class="lbl">비콘 태그</span><span class="sub">30대 · 대당 4만원</span><span class="val mono">120만원</span></div>
         <div class="price-row"><span class="lbl">주차장·지하 수신기</span><span class="sub">2대 · 대당 30만원</span><span class="val mono">60만원</span></div>
-        <div class="price-row"><span class="lbl">관제 구독</span><span class="sub">30대 · 대당 월 5만원 · 3개월</span><span class="val mono">450만원</span></div>
+        <div class="price-row"><span class="lbl">관제 구독</span><span class="sub">40대 · 대당 월 5만원 · 3개월</span><span class="val mono">600만원</span></div>
       </div>
-      <div class="price-total"><span class="lbl">시범 운영 합계</span><span class="val mono">918만원</span></div>
-      <p class="price-note">시범 운영 단말기는 본 도입 때 그대로 이어서 씁니다. 설치·인증 대행은 별도 견적입니다.</p>
+      <div class="price-total"><span class="lbl">시범 운영 합계</span><span class="val mono">1,060만원</span></div>
+      <p class="price-note">기성 부품을 조립한 시범용 단말기로 3~4주 안에 현장 시험을 시작합니다. 시범 운영 단말기는 본 도입 때 그대로 이어서 씁니다. 설치·인증 대행은 별도 견적입니다.</p>
     </div>
   </div>
 </section>
