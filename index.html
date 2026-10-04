@@ -640,6 +640,36 @@ p{text-wrap:pretty}
         </div>
       </div>
     </div>
+    <style>
+    .loss{margin-top:40px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:26px 28px 22px;}
+    .loss h3{margin:0 0 4px;font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
+    .loss .sub{margin:0 0 14px;font-size:14px;color:var(--ink-mute);}
+    .loss table{width:100%;border-collapse:collapse;}
+    .loss th{font-size:12.5px;font-weight:600;color:var(--ink-mute);text-align:left;padding:10px 0;border-bottom:1px solid var(--line);}
+    .loss td{padding:15px 0;border-bottom:1px solid var(--line-soft);vertical-align:top;font-size:14.5px;color:var(--ink-dim);line-height:1.6;}
+    .loss td b{display:block;font-size:15.5px;font-weight:600;color:var(--ink);}
+    .loss tbody td:nth-child(2),.loss th:nth-child(2){padding-left:20px;padding-right:20px;}
+    .loss .n{text-align:right;white-space:nowrap;font-size:17px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+    .loss th.n{font-size:12.5px;font-weight:600;color:var(--ink-mute);}
+    .loss tfoot td{border-bottom:0;padding-top:18px;font-size:15.5px;font-weight:600;color:var(--ink);}
+    .loss tfoot .n{font-size:28px;letter-spacing:-.02em;color:var(--amber);}
+    .loss .note{margin:12px 0 0;font-size:13px;color:var(--ink-mute);line-height:1.7;}
+    @media(max-width:640px){.loss{padding:20px 18px;}.loss th:nth-child(2),.loss td:nth-child(2){display:none;}.loss tfoot .n{font-size:23px;}}
+    </style>
+    <div class="loss">
+      <h3>장비 150대 조업사가 한 해에 잃는 돈</h3>
+      <p class="sub">세 가지 손실을 금액으로 환산한 추정치입니다.</p>
+      <table>
+        <thead><tr><th>손실 항목</th><th>산정 근거</th><th class="n">연간 손실</th></tr></thead>
+        <tbody>
+          <tr><td><b>인건비 손실</b>조업에 쓸 인력이 장비 탐색과 현장 이탈에 쓰입니다</td><td>탐색 15분 × 인력 2명 × 하루 90편 × 365일</td><td class="n">약 7억 5천만원</td></tr>
+          <tr><td><b>수주 포기 손실</b>지금 장비로 신규 조업이 가능한지 답할 데이터가 없습니다</td><td>연 156편 수주 포기 × 편당 약 290만원</td><td class="n">약 4억 5천만원</td></tr>
+          <tr><td><b>지연 귀책 손실</b>조업이 늦으면 근거 없이 귀책 비용을 떠안습니다</td><td>월 6건 × 편당 100만원 + 대응비</td><td class="n">약 7,500만원</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">연간 손실 합계</td><td class="n">약 12억 7,500만원</td></tr></tfoot>
+      </table>
+      <p class="note">장비 100대 조업사 기준 추정치(인건비 5억 · 수주 포기 3억 · 지연 귀책 5천만원)를 장비 대수에 비례해 150대로 환산했습니다. 실제 금액은 조업 편수와 계약 조건에 따라 달라집니다.</p>
+    </div>
   </div>
 </section>
 
@@ -661,7 +691,7 @@ p{text-wrap:pretty}
         <div class="step hot"><span class="n mono">08</span><span class="t">작업 후 기억에 의존해 일지 작성</span><span class="m mono">2분</span></div>
         <div class="step hot"><span class="n mono">09</span><span class="t">월말 항공사와 지연 귀책 대조</span><span class="m mono">월 4~8시간</span></div>
     </div>
-    <p class="flow-foot">장비 150대 규모 조업사 기준 연간 손실은 약 17.9억원으로 추정됩니다.</p>
+    <p class="flow-foot">장비 150대 규모 조업사 기준 연간 손실은 약 12억 7,500만원으로 추정됩니다.</p>
   </div>
 </section>
 
