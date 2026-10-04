@@ -144,11 +144,11 @@ h2{font-size:clamp(24px,3vw,34px);line-height:1.3;font-weight:700;letter-spacing
 .flow-foot{margin:22px 0 0;font-size:14.5px;color:var(--ink-mute);line-height:1.7;text-align:center;}
 .flow-head{text-align:center;max-width:680px;margin:0 auto 36px;}
 .flow-head p:not(.kicker){color:var(--ink-dim);font-size:15.5px;line-height:1.75;margin:0;word-break:keep-all;}
-@media(min-width:900px){.flow-h{grid-template-columns:repeat(9,minmax(0,1fr));gap:4px;}
-.flow-h .step{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;align-items:start;gap:12px;padding:16px 13px;min-height:168px;}
-.flow-h .step.hot{background:linear-gradient(180deg,var(--amber-wash),var(--surface) 70%);}
-.flow-h .step .t{font-size:14.5px;line-height:1.5;word-break:keep-all;}
-.flow-h .step .m{font-size:14px;align-self:end;}}
+@media(min-width:900px){.flow-h{gap:4px;}
+.flow-h .step{grid-template-columns:44px minmax(0,1fr) auto;padding:17px 24px;}
+.flow-h .step .n{font-size:14px;}
+.flow-h .step .t{font-size:16.5px;}
+.flow-h .step .m{font-size:15.5px;}}
 
 .device-fig{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:clamp(20px,3vw,32px);}
 .device-fig svg{width:130px;height:auto;display:block;margin:0 auto;}
