@@ -997,7 +997,7 @@ p{text-wrap:pretty}
       if(z==='fit'){fit();tvSet('t2');}else{A.tcx=null;A.VW*=z==='in'?1/1.5:1.5;}});});
 
     var tvs=root.querySelectorAll('[data-tv]');function tvSet(v){Array.prototype.forEach.call(tvs,function(x){x.setAttribute('aria-pressed',String(x.getAttribute('data-tv')===v));});}
-    Array.prototype.forEach.call(tvs,function(b){b.addEventListener('click',function(){var v=b.getAttribute('data-tv'),d=dims(),r=d[0]/d[1],T={t2:[470,780],cc:[1090,330],t1:[1440,560],all:[905,1740]}[v],vw=Math.max((v==='cc'?640:820)*(A.phone?.62:1),T[1]*r),VH=vw/r;
+    Array.prototype.forEach.call(tvs,function(b){b.addEventListener('click',function(){var v=b.getAttribute('data-tv'),d=dims(),r=d[0]/d[1],T={t2:[470,780],cc:[1090,330],t1:[1515,590],all:[905,1740]}[v],vw=Math.max((v==='cc'?640:820)*(A.phone?.62:1),T[1]*r),VH=vw/r;
       A.follow=false;tvSet(v);flyTo(565,T[0]+(A.phone?(0.5-0.27)*VH:0),vw);});});
     /* 필터 */
     var tiles=root.querySelectorAll('.a-t');
