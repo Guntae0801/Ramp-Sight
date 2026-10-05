@@ -860,7 +860,8 @@ p{text-wrap:pretty}
   function planned(no){ // 경로 계획이 있는 장비: 주차장 → 스탠드 → 주차장으로 끊김 없이, 막히면 대기
     var lead=no,lag=0;if(RTD.LAG[no]){lead=RTD.LAG[no][0];lag=RTD.LAG[no][1];}
     var P=advance(lead);if(!P)return null;
-    if(P.st==='move'||P.st==='ret')return {st:P.st,p:laneAt(P.M,P.s-lag,P.dgv),wait:P.wait,dg:P.dgv||0,rev:P.rev,held:P.held,pk:P.held&&P.st==='move'};
+    if(P.st==='move'&&P.s<=(P.M.s0||0)+.5&&RTD.SLOT[no]){var s0l=RTD.SLOT[no];return {st:'idle',p:[s0l[0],s0l[1],s0l[2]],park:true};}
+    if(P.st==='move'||P.st==='ret')return {st:P.st,show:(P.st==='ret'&&P.s<=(P.M.s0||0)+.5)?'work':null,p:laneAt(P.M,P.s-lag,P.dgv),wait:P.wait,dg:P.dgv||0,rev:P.rev,held:P.held,pk:P.held&&P.st==='move'};
     if(P.st==='idle'){var sl=RTD.SLOT[no];return sl?{st:'idle',p:[sl[0],sl[1],sl[2]],park:true}:null;}
     return {st:'work'};}
 
@@ -879,13 +880,13 @@ p{text-wrap:pretty}
     S.units.forEach(function(u){var d=U[u.no],s=u.status(),st=s.st,pl=planned(u.no);
       d.lot=RTD.LOTOF[u.no]||null;
       if(pl){ // 계획 경로 사용 (화면 좌표)
-        if(pl.st!=='work'){st=pl.st;
+        if(pl.st!=='work'){st=pl.show||pl.st;
           var vx=pl.p[0],vy=pl.p[1];
           if(pl.park){d.ph=pl.p[2];d.parked=true;}else{d.parked=false;if(d.lastV){var ddx=vx-d.lastV[0],ddy=vy-d.lastV[1];if(ddx*ddx+ddy*ddy>0.002&&!pl.rev)d.h=Math.atan2(ddy,ddx)*180/Math.PI+90-ROT;}}
           d.lastV=[vx,vy];d.sx=vx;d.sy=vy;var q=Ri(vx,vy);d.x=q[0];d.y=q[1];d.op=1;d.last=null;
           if(st!==d.st){if(d.st!==null)d.since=t;d.st=st;}
           var fw=pl.park?fwdOf(pl.p[2]):[pl.p[3],pl.p[4]];d.mvP=st==='move'||st==='ret';POSV[u.no]={x:vx,y:vy,pk:!!(pl.park||pl.pk),mv:d.mvP&&!pl.held,wait:!!pl.wait,dg:pl.dg||0,lead:RTD.LAG[u.no]?RTD.LAG[u.no][0]:u.no,b:body(d.type,vx,vy,fw[0],fw[1])};
-          d.raw=s.loc;d.loc=locText(st,s.loc,d.parked,d.lot);return;}
+          d.raw=s.loc;d.loc=locText(st,s.loc,d.parked,d.lot);if(pl.show==='work'){var mm=/^(\S+)\s*→/.exec(s.loc||'');if(mm)d.loc=mm[1];}return;}
       }
       var p=u.pos(),vis=p&&p[2]>0.05;
       if(st!==d.st){if(d.st!==null)d.since=t;d.st=st;}
