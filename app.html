@@ -813,15 +813,22 @@ p{text-wrap:pretty}
       if(!hh)continue;
       var cx0=cur[3],cy0=cur[4],lr=(q2.x-cur[0])*(-cy0)+(q2.y-cur[1])*cx0;
       if(!P.yield&&((q2.wait&&lead>ld)||(!q2.mv&&!q2.wait&&wt>5))){P.yield=ld;P.dgT=Math.max(-7,Math.min(7,(P.dgv||0)+(lr>=0?lr-6.8:lr+6.8)));}
-      if((q2.wait&&lead<ld&&wt>6&&(BLK[ld]===lead||mine.indexOf(BLK[ld])>=0))||(!q2.mv&&!q2.wait&&wt>3)||wt>9){P.ign=P.ign||{};P.ign[ld]=3;continue;}
+      if((q2.wait&&lead<ld&&wt>6&&(BLK[ld]===lead||mine.indexOf(BLK[ld])>=0))||(!q2.mv&&!q2.wait&&wt>1)||wt>9){P.ign=P.ign||{};P.ign[ld]=3;continue;}
       BLK[lead]=no;return true;}
     return false;}
   function clearStep(lead,M,s1,d1,s2,d2){var mem=[lead].concat(TRAIN[lead]||[]);
     for(var i=0;i<mem.length;i++){var no=mem[i],lag=RTD.LAG[no]?RTD.LAG[no][1]:0,ty=U[no].type;
       var a=laneAt(M,s1-lag,d1),b=laneAt(M,s2-lag,d2),A=body(ty,a[0],a[1],a[3],a[4]),B=body(ty,b[0],b[1],b[3],b[4]);
       for(var k in POSV){if(mem.indexOf(k)>=0)continue;var q=POSV[k];if(!q.b)continue;if(Math.abs(q.x-b[0])>16||Math.abs(q.y-b[1])>16)continue;
-        var dn=segD(B,q.b)-B.r-q.b.r;if(dn<-1.0&&dn<segD(A,q.b)-A.r-q.b.r-1e-4){BLK[lead]=k;return false;}}}
+        var dn=segD(B,q.b)-B.r-q.b.r;if(dn<((PROG[lead]&&PROG[lead].wt>40)?-9:-1.0)&&dn<segD(A,q.b)-A.r-q.b.r-1e-4){BLK[lead]=k;return false;}}}
     return true;}
+  function inZ(L,x,y,m){return x>L.x-m&&x<L.x+L.w+m&&y>L.y-m&&y<L.y+L.h+m;}
+  function gate(lead,P,M){var L=LOTS[RTD.LOTOF[lead]],dep=P.s<=(M.s0||0)+.5,c=laneAt(M,P.s,0),inMe=L&&inZ(L,c[0],c[1],10),arr=false;
+    if(L&&!dep&&!inMe){var a=laneAt(M,Math.min(M.L,P.s+16),0);arr=inZ(L,a[0],a[1],10);}
+    if(!dep&&!arr)return false;
+    for(var k in POSV){var q=POSV[k],ld=q.lead||k;if(ld===lead)continue;var Q=PROG[ld];if(!Q||!Q.M||(Q.st!=='move'&&Q.st!=='ret'))continue;if(Q.s<=(Q.M.s0||0)+.5||Q.s>=Q.M.L-.05||Q.wt>2)continue;
+      if((L&&(arr||inMe)&&inZ(L,q.x,q.y,10))||(dep&&Math.hypot(q.x-c[0],q.y-c[1])<13)){BLK[lead]=null;return true;}}
+    return false;}
   function stuck(lead,P,M){P.wait=true;P.wt=(P.wt||0)+DT;var bl=BLK[lead],q=POSV[bl],ld=q&&(q.lead||bl);
     if(P.wt>2.5&&q&&q.wait&&(lead>ld||P.wt>8)&&(P.rv||0)<45){var n=Math.max(M.s0||0,P.s-13*DT);if(n<P.s&&clearStep(lead,M,P.s,P.dgv||0,n,P.dgv||0)){P.rv=(P.rv||0)+P.s-n;P.s=n;P.rev=true;}}}
   function tick(P){if(P.ign)for(var k in P.ign)P.ign[k]-=DT;if(P.yield){var o=POSV[P.yield],mine=[P.lead].concat(TRAIN[P.lead]||[]),far=true;   // 비켜 준 상대가 내 차량 행렬을 완전히 지나갈 때까지 옆으로 비켜선 채 유지
@@ -838,7 +845,7 @@ p{text-wrap:pretty}
     var sT=M?M.s0+(M.L-M.s0)*ease(lg.u):0;
     var moving=P&&(P.st==='move'||P.st==='ret')&&P.s<P.M.L-.05;
     if(moving&&!(mvL&&P.st===lg.st)){ // 시뮬레이션은 다음 단계인데 아직 도착 전 → 도착할 때까지 계속 주행
-      tick(P);if(blockedAhead(lead,P.M,P.s,P)){stuck(lead,P,P.M);}else{var n1=Math.min(P.M.L,P.s+vmx(lead)*.8*DT);if(clearStep(lead,P.M,P.s,P.dgv||0,n1,P.dgv||0)){P.wait=false;P.wt=0;P.s=n1;P.rev=false;P.rv=0;}else{stuck(lead,P,P.M);}}
+      tick(P);if(gate(lead,P,P.M)){P.held=true;P.wait=false;P.wt=0;}else if((P.held=false)||blockedAhead(lead,P.M,P.s,P)){stuck(lead,P,P.M);}else{var n1=Math.min(P.M.L,P.s+vmx(lead)*.8*DT);if(clearStep(lead,P.M,P.s,P.dgv||0,n1,P.dgv||0)){P.wait=false;P.wt=0;P.s=n1;P.rev=false;P.rv=0;}else{stuck(lead,P,P.M);}}
       P.f=FRAME;return P;}
     if(!mvL){var pv=P&&P.st,need=null;
       if(lg.st==='work'&&(pv==='idle'||pv==='ret'))need='move';
@@ -848,13 +855,13 @@ p{text-wrap:pretty}
       P={f:FRAME,st:lg.st};PROG[lead]=P;return P;}
     if(!P||P.st!==lg.st||P.M!==M){P={st:lg.st,s:P?M.s0:sT,sT:sT,M:M,dgv:0,lead:lead};}
     var dsN=Math.max(0,sT-P.sT),room=sT-P.s;P.sT=sT;
-    tick(P);if(room>0){ if(blockedAhead(lead,M,P.s,P)){stuck(lead,P,M);} else {var n2=Math.min(sT,P.s+Math.min(vmx(lead)*DT,Math.max(dsN*1.6,20*DT)));if(clearStep(lead,M,P.s,P.dgv||0,n2,P.dgv||0)){P.wait=false;P.wt=0;P.s=n2;P.rev=false;P.rv=0;}else{stuck(lead,P,M);}} }
+    tick(P);if(room>0){ if(gate(lead,P,M)){P.held=true;P.wait=false;P.wt=0;}else if((P.held=false)||blockedAhead(lead,M,P.s,P)){stuck(lead,P,M);} else {var n2=Math.min(sT,P.s+Math.min(vmx(lead)*DT,Math.max(dsN*1.6,20*DT)));if(clearStep(lead,M,P.s,P.dgv||0,n2,P.dgv||0)){P.wait=false;P.wt=0;P.s=n2;P.rev=false;P.rv=0;}else{stuck(lead,P,M);}} }
     else P.wait=false;
     P.f=FRAME;PROG[lead]=P;return P;}
   function planned(no){ // 경로 계획이 있는 장비: 주차장 → 스탠드 → 주차장으로 끊김 없이, 막히면 대기
     var lead=no,lag=0;if(RTD.LAG[no]){lead=RTD.LAG[no][0];lag=RTD.LAG[no][1];}
     var P=advance(lead);if(!P)return null;
-    if(P.st==='move'||P.st==='ret')return {st:P.st,p:laneAt(P.M,P.s-lag,P.dgv),wait:P.wait,dg:P.dgv||0,rev:P.rev};
+    if(P.st==='move'||P.st==='ret')return {st:P.st,p:laneAt(P.M,P.s-lag,P.dgv),wait:P.wait,dg:P.dgv||0,rev:P.rev,held:P.held};
     if(P.st==='idle'){var sl=RTD.SLOT[no];return sl?{st:'idle',p:[sl[0],sl[1],sl[2]],park:true}:null;}
     return {st:'work'};}
 
@@ -878,7 +885,7 @@ p{text-wrap:pretty}
           if(pl.park){d.ph=pl.p[2];d.parked=true;}else{d.parked=false;if(d.lastV){var ddx=vx-d.lastV[0],ddy=vy-d.lastV[1];if(ddx*ddx+ddy*ddy>0.002&&!pl.rev)d.h=Math.atan2(ddy,ddx)*180/Math.PI+90-ROT;}}
           d.lastV=[vx,vy];d.sx=vx;d.sy=vy;var q=Ri(vx,vy);d.x=q[0];d.y=q[1];d.op=1;d.last=null;
           if(st!==d.st){if(d.st!==null)d.since=t;d.st=st;}
-          var fw=pl.park?fwdOf(pl.p[2]):[pl.p[3],pl.p[4]];d.mvP=st==='move'||st==='ret';POSV[u.no]={x:vx,y:vy,mv:d.mvP,wait:!!pl.wait,dg:pl.dg||0,lead:RTD.LAG[u.no]?RTD.LAG[u.no][0]:u.no,b:body(d.type,vx,vy,fw[0],fw[1])};
+          var fw=pl.park?fwdOf(pl.p[2]):[pl.p[3],pl.p[4]];d.mvP=st==='move'||st==='ret';POSV[u.no]={x:vx,y:vy,mv:d.mvP&&!pl.held,wait:!!pl.wait,dg:pl.dg||0,lead:RTD.LAG[u.no]?RTD.LAG[u.no][0]:u.no,b:body(d.type,vx,vy,fw[0],fw[1])};
           d.raw=s.loc;d.loc=locText(st,s.loc,d.parked,d.lot);return;}
       }
       var p=u.pos(),vis=p&&p[2]>0.05;
