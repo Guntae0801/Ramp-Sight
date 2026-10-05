@@ -813,10 +813,10 @@ p{text-wrap:pretty}
       if(!hh)continue;
       var cx0=cur[3],cy0=cur[4],lr=(q2.x-cur[0])*(-cy0)+(q2.y-cur[1])*cx0;
       if(!P.yield&&((q2.wait&&lead>ld)||(!q2.mv&&!q2.wait&&wt>5))){P.yield=ld;P.dgT=Math.max(-7,Math.min(7,(P.dgv||0)+(lr>=0?lr-6.8:lr+6.8)));}
-      if((q2.wait&&lead<ld&&wt>6&&(BLK[ld]===lead||mine.indexOf(BLK[ld])>=0))||(!q2.mv&&!q2.wait&&wt>1)||wt>9){P.ign=P.ign||{};P.ign[ld]=3;continue;}
+      if((q2.wait&&lead<ld&&wt>6&&(BLK[ld]===lead||mine.indexOf(BLK[ld])>=0))||(!q2.mv&&!q2.wait&&wt>1)||wt>4){P.ign=P.ign||{};P.ign[ld]=3;continue;}
       BLK[lead]=no;return true;}
     return false;}
-  function clearStep(lead,M,s1,d1,s2,d2){var mem=[lead].concat(TRAIN[lead]||[]);
+  function clearStep(lead,M,s1,d1,s2,d2){return true;var mem=[lead].concat(TRAIN[lead]||[]);
     for(var i=0;i<mem.length;i++){var no=mem[i],lag=RTD.LAG[no]?RTD.LAG[no][1]:0,ty=U[no].type;
       var a=laneAt(M,s1-lag,d1),b=laneAt(M,s2-lag,d2),A=body(ty,a[0],a[1],a[3],a[4]),B=body(ty,b[0],b[1],b[3],b[4]);
       for(var k in POSV){if(mem.indexOf(k)>=0)continue;var q=POSV[k];if(!q.b||q.pk)continue;if(Math.abs(q.x-b[0])>16||Math.abs(q.y-b[1])>16)continue;
@@ -829,7 +829,7 @@ p{text-wrap:pretty}
       if(dep&&Math.hypot(q.x-c[0],q.y-c[1])<14){BLK[lead]=null;return true;}}
     return false;}
   function stuck(lead,P,M){P.wait=true;P.wt=(P.wt||0)+DT;var bl=BLK[lead],q=POSV[bl],ld=q&&(q.lead||bl);
-    if(P.wt>2.5&&q&&q.wait&&(lead>ld||P.wt>8)&&(P.rv||0)<45){var n=Math.max(M.s0||0,P.s-13*DT);if(n<P.s&&clearStep(lead,M,P.s,P.dgv||0,n,P.dgv||0)){P.rv=(P.rv||0)+P.s-n;P.s=n;P.rev=true;}}}
+    if(false&&P.wt>2.5&&q&&q.wait&&(lead>ld||P.wt>8)&&(P.rv||0)<45){var n=Math.max(M.s0||0,P.s-13*DT);if(n<P.s&&clearStep(lead,M,P.s,P.dgv||0,n,P.dgv||0)){P.rv=(P.rv||0)+P.s-n;P.s=n;P.rev=true;}}}
   function tick(P){if(P.ign)for(var k in P.ign)P.ign[k]-=DT;if(P.yield){var o=POSV[P.yield],mine=[P.lead].concat(TRAIN[P.lead]||[]),far=true;   // 비켜 준 상대가 내 차량 행렬을 완전히 지나갈 때까지 옆으로 비켜선 채 유지
       if(o)for(var i=0;i<mine.length;i++){var m=POSV[mine[i]];if(m&&Math.hypot(m.x-o.x,m.y-o.y)<13){far=false;break;}}
       if(far)P.yield=false;}
@@ -875,6 +875,18 @@ p{text-wrap:pretty}
     if(st==='ret'){m=/^(\S+)\s*→/.exec(raw||'');if(m&&lot&&LOTS[lot])return m[1]+' → '+LOTS[lot].name;
       m=/^→\s*(.+)$/.exec(raw||'');if(m)return m[1]+'로 복귀';return raw;}
     return raw;}
+  var OFF={};
+  function sidestep(){var ks=[],T={},i,j,k;for(k in POSV){if(POSV[k].b&&U[k]&&U[k].op>0)ks.push(k);}
+    function push(me,mk,ot,amt){var fx=me.b.ax-me.b.bx,fy=me.b.ay-me.b.by,L=Math.hypot(fx,fy);if(L<.01){fx=0;fy=-1;L=1;}fx/=L;fy/=L;var px=-fy,py=fx,lr=(me.x-ot.x)*px+(me.y-ot.y)*py,o=OFF[mk],sd;
+      if(Math.abs(lr)<.5){var ol=o?o.x*px+o.y*py:0;sd=Math.abs(ol)>.2?(ol>0?1:-1):1;}else sd=lr>0?1:-1;
+      var q=T[mk]||(T[mk]={x:0,y:0});q.x+=px*sd*amt;q.y+=py*sd*amt;}
+    for(i=0;i<ks.length;i++){var a=POSV[ks[i]];for(j=i+1;j<ks.length;j++){var b=POSV[ks[j]];
+      if(!a.mv&&!b.mv)continue;if((a.lead||ks[i])===(b.lead||ks[j]))continue;if(Math.abs(b.x-a.x)>16||Math.abs(b.y-a.y)>16)continue;
+      var gap=segD(a.b,b.b)-a.b.r-b.b.r;if(gap>=.8)continue;var need=(.8-gap)*1.5;
+      if(a.mv)push(a,ks[i],b,need*(b.mv?.5:1));if(b.mv)push(b,ks[j],a,need*(a.mv?.5:1));}}
+    for(k in U){var d=U[k],o=OFF[k]||(OFF[k]={x:0,y:0}),tg=T[k],tx=0,ty=0;if(tg){var m=Math.hypot(tg.x,tg.y);if(m>7){tg.x*=7/m;tg.y*=7/m;}tx=tg.x;ty=tg.y;}
+      var f=Math.min(1,DT*5);o.x+=(tx-o.x)*f;o.y+=(ty-o.y)*f;var pv=POSV[k];if(pv){pv.dx=pv.x;pv.dy=pv.y;}
+      if(d.op>0&&(Math.abs(o.x)>.03||Math.abs(o.y)>.03)){d.sx+=o.x;d.sy+=o.y;var q2=Ri(d.sx,d.sy);d.x=q2[0];d.y=q2[1];if(pv){pv.dx=d.sx;pv.dy=d.sy;}}}}
   function snap(fdt){
     var t=Date.now(),pn=perf();DT=fdt!=null?fdt:(lastT==null?0:Math.min(.1,(pn-lastT)/1000));lastT=pn;FRAME++;
     S.units.forEach(function(u){var d=U[u.no],s=u.status(),st=s.st,pl=planned(u.no);
@@ -897,6 +909,7 @@ p{text-wrap:pretty}
       if(d.op>0&&!(d.parked&&RTD.SLOT[u.no])){var rr=RT(d.x,d.y);d.sx=rr[0];d.sy=rr[1];}
       d.lastV=d.op>0?[d.sx,d.sy]:null;d.mvP=d.op>0&&(st==='move'||st==='ret');var fw2=fwdOf(d.parked?(d.ph||0):d.h+ROT);POSV[u.no]={x:d.sx,y:d.sy,pk:!!d.parked,mv:d.mvP,lead:u.no,b:d.op>0.3?body(d.type,d.sx,d.sy,fw2[0],fw2[1]):null};
       d.raw=s.loc;d.loc=locText(st,s.loc,d.parked,d.lot);});
+    sidestep();
   }
   function mins(d){return Math.max(1,Math.floor((Date.now()-d.since)/1000));} // 1초 ≈ 1분(시연 압축)
 
