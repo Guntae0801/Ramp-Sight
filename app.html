@@ -824,17 +824,17 @@ p{text-wrap:pretty}
     if(o(p.ax,p.ay,p.bx,p.by,q.ax,q.ay)*o(p.ax,p.ay,p.bx,p.by,q.bx,q.by)<0&&o(q.ax,q.ay,q.bx,q.by,p.ax,p.ay)*o(q.ax,q.ay,q.bx,q.by,p.bx,p.by)<0)return 0;
     return Math.min(ps(p.ax,p.ay,q.ax,q.ay,q.bx,q.by),ps(p.bx,p.by,q.ax,q.ay,q.bx,q.by),ps(q.ax,q.ay,p.ax,p.ay,p.bx,p.by),ps(q.bx,q.by,p.ax,p.ay,p.bx,p.by));}
   function hit(p,q,m){return segD(p,q)<p.r+q.r+(m||0);}
-  function blockedAhead(lead,M,s,P){var wt=P.wt||0,dg=P.dgv||0;
+  function blockedAhead(lead,M,s,P){P.gap=0;var wt=P.wt||0,dg=P.dgv||0;
     var mine=[lead].concat(TRAIN[lead]||[]),st=S.state(),ty=U[lead].type;
     var cur=laneAt(M,s,dg),B0=body(ty,cur[0],cur[1],cur[3],cur[4]),fut=[];
     for(var k=1.5;k<=LA;k+=1.5){var q=laneAt(M,Math.min(M.L,s+k),dg);fut.push(body(ty,q[0],q[1],q[3],q[4]));}
     var p=fut[fut.length-1];
-    for(var id in {m1:1,m2:1,m3:1,m4:1,m5:1,m6:1,m7:1,t1:1,t2:1,t3:1,t4:1,t5:1,t6:1,t7:1}){var a=st[id];if(!a||a.op<.3)continue;if(id.charAt(0)==='m'&&a.leg&&(!a.leg.p||a.leg.a===a.leg.b||/^(rR|lL)/.test(a.leg.p)))continue;var v=RT(a.x,a.y);if((function(){var R2=id.charAt(0)==='m'?27:7;for(var q9=0;q9<fut.length;q9++)if(Math.hypot(v[0]-fut[q9].ax,v[1]-fut[q9].ay)<R2)return true;return false;})()){BLK[lead]=id;return true;}}
+    for(var id in {m1:1,m2:1,m3:1,m4:1,m5:1,m6:1,m7:1,t1:1,t2:1,t3:1,t4:1,t5:1,t6:1,t7:1}){var a=st[id];if(!a||a.op<.3)continue;if(id.charAt(0)==='m'&&a.leg&&(!a.leg.p||a.leg.a===a.leg.b||/^(rR|lL)/.test(a.leg.p)))continue;if(id.charAt(0)==='t'){var mA=st['m'+id.slice(1)],tm=a.leg&&(a.leg.home||(a.leg.attach&&mA&&mA.leg&&mA.leg.p&&mA.leg.a!==mA.leg.b));if(!tm)continue;}var v=RT(a.x,a.y);if((function(){var R2=id.charAt(0)==='m'?27:7;for(var q9=0;q9<fut.length;q9++)if(Math.hypot(v[0]-fut[q9].ax,v[1]-fut[q9].ay)<R2)return true;return false;})()){BLK[lead]=id;return true;}}
     for(var no in POSV){if(mine.indexOf(no)>=0)continue;var q2=POSV[no];if(!q2.b)continue;
       if(hit(B0,q2.b,-.2))continue;                                   // 이미 겹친 상태면 서로 빠져나가도록 무시
       var ld=q2.lead||no;
       if(P.ign&&P.ign[ld]>0)continue;
-      var hh=false;for(var i=0;i<fut.length;i++)if(hit(fut[i],q2.b,1.1)){hh=true;break;}
+      var hh=false;for(var i=0;i<fut.length;i++)if(hit(fut[i],q2.b,1.1)){hh=true;P.gap=(i+1)*1.5;break;}
       if(!hh)continue;
       var cx0=cur[3],cy0=cur[4],lr=(q2.x-cur[0])*(-cy0)+(q2.y-cur[1])*cx0;
       if(!P.yield&&((q2.wait&&lead>ld)||(!q2.mv&&!q2.wait&&wt>5))){P.yield=ld;P.dgT=Math.max(-7,Math.min(7,(P.dgv||0)+(lr>=0?lr-6.8:lr+6.8)));}
@@ -853,6 +853,9 @@ p{text-wrap:pretty}
     for(var k in POSV){var q=POSV[k],ld=q.lead||k;if(ld===lead)continue;var Q=PROG[ld];if(!Q||!Q.M||(Q.st!=='move'&&Q.st!=='ret'))continue;if(Q.s<=(Q.M.s0||0)+.5||Q.s>=Q.M.L-.05||Q.wt>2)continue;
       if(dep&&Math.hypot(q.x-c[0],q.y-c[1])<14){BLK[lead]=null;return true;}}
     return false;}
+  function drive(lead,P,M,vd,lim,blocked){var vt=blocked?(P.gap>4.5?vd*.8*Math.min(1,(P.gap-4.5)/6):0):vd,rem=lim-P.s;vt=Math.min(vt,Math.sqrt(90*Math.max(0,rem))+3);
+    var v=P.v||0;v+=Math.max(-70*DT,Math.min(26*DT,vt-v));if(v<0)v=0;P.v=v;if(rem>0&&v>0)P.s=Math.min(lim,P.s+v*DT);
+    if(blocked&&v<1.5){P.wait=true;P.wt=(P.wt||0)+DT;}else{P.wait=false;if(!blocked)P.wt=0;}P.rev=false;}
   function stuck(lead,P,M){P.wait=true;P.wt=(P.wt||0)+DT;var bl=BLK[lead],q=POSV[bl],ld=q&&(q.lead||bl);
     if(false&&P.wt>2.5&&q&&q.wait&&(lead>ld||P.wt>8)&&(P.rv||0)<45){var n=Math.max(M.s0||0,P.s-13*DT);if(n<P.s&&clearStep(lead,M,P.s,P.dgv||0,n,P.dgv||0)){P.rv=(P.rv||0)+P.s-n;P.s=n;P.rev=true;}}}
   function tick(P){if(P.ign)for(var k in P.ign)P.ign[k]-=DT;if(P.yield){var o=POSV[P.yield],mine=[P.lead].concat(TRAIN[P.lead]||[]),far=true;   // 비켜 준 상대가 내 차량 행렬을 완전히 지나갈 때까지 옆으로 비켜선 채 유지
@@ -869,7 +872,7 @@ p{text-wrap:pretty}
     var sT=M?M.s0+(M.L-M.s0)*ease(lg.u):0;
     var moving=P&&(P.st==='move'||P.st==='ret')&&P.s<P.M.L-.05;
     if(moving&&!(mvL&&P.st===lg.st)){ // 시뮬레이션은 다음 단계인데 아직 도착 전 → 도착할 때까지 계속 주행
-      tick(P);if((P.hT||0)<6&&gate(lead,P,P.M)){P.hT=(P.hT||0)+DT;P.held=true;P.wait=false;P.wt=0;}else if((P.held=false)||blockedAhead(lead,P.M,P.s,P)){stuck(lead,P,P.M);}else{var n1=Math.min(P.M.L,P.s+vmx(lead)*.8*DT);if(clearStep(lead,P.M,P.s,P.dgv||0,n1,P.dgv||0)){P.wait=false;P.wt=0;P.s=n1;P.rev=false;P.rv=0;}else{stuck(lead,P,P.M);}}
+      tick(P);if((P.hT||0)<6&&gate(lead,P,P.M)){P.hT=(P.hT||0)+DT;P.held=true;P.wait=false;P.wt=0;}else{P.held=false;drive(lead,P,P.M,vmx(lead)*.8,P.M.L,blockedAhead(lead,P.M,P.s,P));}
       P.f=FRAME;return P;}
     if(!mvL){var pv=P&&P.st,need=null;
       if(lg.st==='work'&&(pv==='idle'||pv==='ret'))need='move';
@@ -879,7 +882,7 @@ p{text-wrap:pretty}
       P={f:FRAME,st:lg.st};PROG[lead]=P;return P;}
     if(!P||P.st!==lg.st||P.M!==M){P={st:lg.st,s:P?M.s0:sT,sT:sT,M:M,dgv:0,lead:lead};}
     var dsN=Math.max(0,sT-P.sT),room=sT-P.s;P.sT=sT;
-    tick(P);if(room>0){ if((P.hT||0)<6&&gate(lead,P,M)){P.hT=(P.hT||0)+DT;P.held=true;P.wait=false;P.wt=0;}else if((P.held=false)||blockedAhead(lead,M,P.s,P)){stuck(lead,P,M);} else {var n2=Math.min(sT,P.s+Math.min(vmx(lead)*DT,Math.max(dsN*1.6,20*DT)));if(clearStep(lead,M,P.s,P.dgv||0,n2,P.dgv||0)){P.wait=false;P.wt=0;P.s=n2;P.rev=false;P.rv=0;}else{stuck(lead,P,M);}} }
+    tick(P);if(room>0){ if((P.hT||0)<6&&gate(lead,P,M)){P.hT=(P.hT||0)+DT;P.held=true;P.wait=false;P.wt=0;}else{P.held=false;drive(lead,P,M,Math.min(vmx(lead),Math.max(dsN*1.6/Math.max(DT,.004),20)),sT,blockedAhead(lead,M,P.s,P));} }
     else P.wait=false;
     P.f=FRAME;PROG[lead]=P;return P;}
   function planned(no){ // 경로 계획이 있는 장비: 주차장 → 스탠드 → 주차장으로 끊김 없이, 막히면 대기
