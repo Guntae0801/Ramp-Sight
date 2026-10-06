@@ -778,7 +778,13 @@ p{text-wrap:pretty}
     for(var fn in FX){fx(RTD.MOVE[fn],FX[fn][0]);fx(RTD.RET[fn],FX[fn][1]);}
     for(var no in SP){var v=SP[no],M=RTD.MOVE[no],Rr=RTD.RET[no];if(!M||!Rr)continue;var n0=M.pts.length,O=endT(M.pts,v);
       if(Rr.s0>0&&Rr.pts.length>n0){var bk=startT(Rr.pts.slice(n0-1),v);RTD.RET[no]={pts:O.concat(bk.slice(1)),s0:ln(O)};}else RTD.RET[no]={pts:startT(Rr.pts,v),s0:Rr.s0};
-      RTD.MOVE[no]={pts:O,s0:M.s0};RTD.WORK[no]=v[6];}window.__RTD=RTD;})();var LOTS=RTD.LOTS;var TRAIN={};Object.keys(RTD.LAG).forEach(function(d){var t=RTD.LAG[d][0];(TRAIN[t]=TRAIN[t]||[]).push(d);});
+      RTD.MOVE[no]={pts:O,s0:M.s0};RTD.WORK[no]=v[6];}window.__RTD=RTD;
+    // 원격 주기장 담당 버스·GPU는 여객기가 서 있을 때만 나가고, 없을 때는 주차장에서 기다린다
+    var RM=[[558.7,743.2,"m5","R1"],[568.1,806.9,"m6","R2"],[474.7,768.7,"m7","R3"]],SYN={},act0=S.act;RTD.SYN={};
+    Object.keys(RTD.MOVE).forEach(function(no){var M=RTD.MOVE[no],e=M.pts[M.pts.length-1],b=null;RM.forEach(function(r){if(Math.hypot(r[0]-e[0],r[1]-e[1])<32)b=r;});if(!b||RTD.LAG[no])return;var m=act0(b[2]);if(!m)return;
+      var tE=0;m.legs.forEach(function(l){if(l.p&&/_dock$/.test(l.p))tE=l.t0+l.d;});var T=m.T,dw=T-tE+m.legs[1].t0,sp=/^GPU/.test(no)?13:30,dm=Math.max(3,(ln(M.pts)-(M.s0||0))/sp),dr=Math.max(3,ln(RTD.RET[no].pts)/sp),W=Math.max(6,dw-3-dm-7),legs=[{hide:1,d:3},{st:'move',d:dm},{st:'work',d:W},{st:'ret',d:dr}],t0=0;
+      legs.forEach(function(l){l.t0=t0;t0+=l.d;});legs.push({hide:1,t0:t0,d:Math.max(.1,T-t0)});var id='syn_'+no;SYN[id]={legs:legs,T:T};Object.defineProperty(SYN[id],'clock',{get:function(){return m.clock===null?null:m.clock-tE;}});RTD.ACT[no]=id;RTD.WORK[no]=b[3];RTD.SYN[no]=[SYN[id],b[3],/^BUS/.test(no)?'승객 수송':'전원 공급'];});
+    S.act=function(id){return SYN[id]||act0(id);};})();var LOTS=RTD.LOTS;var TRAIN={};Object.keys(RTD.LAG).forEach(function(d){var t=RTD.LAG[d][0];(TRAIN[t]=TRAIN[t]||[]).push(d);});
   (function drawLots(){ // 정적 배경(#apron-bg)에 그려 두 화면이 함께 씀. 배경이 36° 돌아가 있으므로 되돌린 그룹 안에 화면 좌표로 그린다
     var bg=$('apron-bg'),G=el('g',{transform:'rotate('+(-ROT)+' '+RCX+' '+RCY+')'});
     Object.keys(LOTS).forEach(function(k){var L=LOTS[k];
@@ -911,7 +917,7 @@ p{text-wrap:pretty}
       if(d.op>0&&(Math.abs(o.x)>.03||Math.abs(o.y)>.03)){d.sx+=o.x;d.sy+=o.y;var q2=Ri(d.sx,d.sy);d.x=q2[0];d.y=q2[1];if(pv){pv.dx=d.sx;pv.dy=d.sy;}}}}
   function snap(fdt){
     var t=Date.now(),pn=perf();DT=fdt!=null?fdt:(lastT==null?0:Math.min(.1,(pn-lastT)/1000));lastT=pn;FRAME++;
-    S.units.forEach(function(u){var d=U[u.no],s=u.status(),st=s.st,pl=planned(u.no);if(RTD.WORK[u.no]&&s.loc)s={st:s.st,loc:s.loc.replace(/G\d+/g,RTD.WORK[u.no])};
+    S.units.forEach(function(u){var d=U[u.no],s=u.status(),st=s.st,pl=planned(u.no);if(RTD.WORK[u.no]&&s.loc)s={st:s.st,loc:s.loc.replace(/G\d+/g,RTD.WORK[u.no])};if(RTD.SYN[u.no]){var sy=RTD.SYN[u.no],lq=legOf(u.no),sq=lq?lq.st:'idle';s={st:sq,loc:sq==='work'?sy[1]+' · '+sy[2]:sq==='move'?'→ '+sy[1]:sq==='ret'?sy[1]+' →':'차고 대기'};st=s.st;}
       d.lot=RTD.LOTOF[u.no]||null;
       if(pl){ // 계획 경로 사용 (화면 좌표)
         if(pl.st!=='work'){st=pl.show||pl.st;
