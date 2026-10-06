@@ -680,12 +680,12 @@ p{text-wrap:pretty}
   function Ri(x,y){var dx=x-550,dy=y-491.5;return [550+dx*RC+dy*RS,491.5-dx*RS+dy*RC];}
   function len(P){var l=0;for(var i=1;i<P.length;i++)l+=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);return l;}
   function back(P,d){var i=P.length-1;while(i>0){var a=P[i],b=P[i-1],l=Math.hypot(a[0]-b[0],a[1]-b[1]);if(l>=d){var nx=-(a[1]-b[1])/l,ny=(a[0]-b[0])/l;return [a[0]+(b[0]-a[0])*d/l+nx*3.4,a[1]+(b[1]-a[1])*d/l+ny*3.4];}d-=l;i--;}return P[0];}
-  var perf=function(){return (window.performance&&performance.now)?performance.now():Date.now();},V=27,LAG=[9.5,18,26.5];
+  var perf=function(){return (window.performance&&performance.now)?performance.now():Date.now();},V=33,LAG=[9.5,18,26.5];
   var ACTS={},LIST=[],MOVE={},RET={},ACT={},SLOT={},LOTOF={},LAGM={},last=perf();delete D.U['TUG-23'];delete D.U['TUG-24'];['TUG-19','TUG-20','TUG-21'].forEach(function(k){var r=D.U[k];if(r&&r.train){r.train.pop();}});
   function tick(){var n=perf(),d=n-last;if(d<12)return;last=n;d=Math.min(.1,d/1000);for(var i=0;i<LIST.length;i++)LIST[i].clock+=d;}
   function unit(no,g,pos,status){S.units.push({no:no,g:g,pos:function(){tick();var p=pos();if(!p)return null;var q=Ri(p[0],p[1]);return [q[0],q[1],1];},status:function(){tick();return status();}});}
   Object.keys(D.U).forEach(function(no){var r=D.U[no],O=r.out,B=r.back||O.slice().reverse(),id='x_'+no;
-    var legs=[{hide:1,d:r.tI*0.4},{st:'move',d:(len(O)-(r.s0||0))/V},{st:'work',d:r.tW*1.7},{st:'ret',d:len(B)/V}],T=0;legs.forEach(function(l){l.t0=T;T+=l.d;});
+    var legs=[{hide:1,d:r.tI*0.18},{st:'move',d:(len(O)-(r.s0||0))/V},{st:'work',d:r.tW*0.9},{st:'ret',d:len(B)/V}],T=0;legs.forEach(function(l){l.t0=T;T+=l.d;});
     var a={id:id,legs:legs,T:T,clock:r.ph%T};ACTS[id]=a;LIST.push(a);
     MOVE[no]={pts:O,s0:r.s0||0};RET[no]=r.back?{pts:O.concat(r.back.slice(1)),s0:len(O)}:{pts:B,s0:0};ACT[no]=id;SLOT[no]=r.slot;LOTOF[no]=r.lot;
     function leg(){var tt=((a.clock%T)+T)%T;for(var i=0;i<legs.length;i++)if(tt<legs[i].t0+legs[i].d)return legs[i];return legs[0];}
