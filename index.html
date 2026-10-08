@@ -193,6 +193,29 @@ h2{font-size:clamp(24px,3vw,34px);line-height:1.3;font-weight:700;letter-spacing
   .tg{margin-left:6px;}
   .fsum{grid-template-columns:1fr;}
 }
+.hw{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:clamp(24px,3.4vw,48px);align-items:center;margin-bottom:12px;}
+.hw-fig{margin:0;position:relative;border-radius:14px;border:1px solid var(--line);overflow:hidden;background:radial-gradient(120% 90% at 50% 38%,#2A2622 0%,#1B1917 55%,#141211 100%);}
+.hw-fig::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:radial-gradient(75% 70% at 50% 45%,#000,transparent);mask-image:radial-gradient(75% 70% at 50% 45%,#000,transparent);pointer-events:none;}
+.hw-fig svg{position:relative;display:block;width:100%;height:auto;}
+.hw-fig figcaption{position:relative;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:13px 20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-dim);background:rgba(15,14,13,.55);}
+.hw-fig figcaption .mono{color:var(--amber);font-weight:700;letter-spacing:.04em;}
+.hw-fig figcaption em{font-style:normal;margin-left:auto;color:var(--ink-mute);font-size:12.5px;}
+.hwl{fill:#F2EFEC;font-family:"IBM Plex Sans KR",sans-serif;font-size:15px;font-weight:600;}
+.hwl2{fill:#A39A8E;font-family:"IBM Plex Sans KR",sans-serif;font-size:13px;}
+.hwc{stroke:#6F6961;stroke-width:1.2;fill:none;}
+.hwd{fill:#FF6B2C;}
+.hw-txt h2{font-size:clamp(23px,2.6vw,31px);margin:0 0 14px;}
+.hw-txt>p:not(.kicker){color:var(--ink-dim);font-size:15.5px;line-height:1.78;margin:0 0 12px;word-break:keep-all;}
+.hw-specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:22px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.hw-specs>div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:3px;min-width:0;}
+.hw-specs .k{font-size:12px;color:var(--ink-mute);letter-spacing:.02em;}
+.hw-specs b{font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.35;}
+.hw-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.hw-chips span{font-size:12.5px;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:6px 13px;}
+.hw-chips b{color:var(--amber);font-weight:700;margin-right:7px;}
+.lineup .lu{border-radius:12px;transition:border-color .2s,transform .2s;}
+.lineup .lu:hover{border-color:rgba(255,107,44,.45);transform:translateY(-2px);}
+@media (max-width:900px){.hw{grid-template-columns:1fr;}.hw-fig figcaption em{margin-left:0;}}
 .flow-foot{margin:22px 0 0;font-size:14.5px;color:var(--ink-mute);line-height:1.7;text-align:center;}
 .flow-head{text-align:center;max-width:680px;margin:0 auto 36px;}
 .flow-head p:not(.kicker){color:var(--ink-dim);font-size:15.5px;line-height:1.75;margin:0;word-break:keep-all;}
@@ -804,49 +827,84 @@ p{text-wrap:pretty}
       <p>GPS와 비콘, 통신 모듈을 하나로 묶은 단말기를 장비에 부착합니다. 장비를 교체할 필요도, 브랜드를 통일할 필요도 없습니다.</p>
     </div>
 
-    <div class="split" style="margin-bottom:12px;">
-      <div class="device-fig">
-        <svg viewBox="0 0 200 260" role="img" aria-label="RAMP·SIGHT 단말기 실물 도해">
-          <rect x="15" y="15" width="170" height="230" rx="20" fill="#24211E" stroke="#3F3A35" stroke-width="1.4"/>
-          <rect x="32" y="34" width="136" height="104" rx="5" fill="#141211" stroke="#302C28" stroke-width="1"/>
-          <g stroke="#3F3A35" stroke-width="1"><path d="M48 52h104M48 70h104M48 88h72"/></g>
-          <circle cx="152" cy="55" r="4" fill="#4FAE85"/>
-          <path d="M100 178a24 24 0 0 1 24 24" stroke="#FF6B2C" stroke-width="2" fill="none"/>
-          <path d="M100 178a36 36 0 0 1 36 36" stroke="#FF6B2C" stroke-width="2" fill="none" opacity=".55"/>
-          <path d="M100 178a48 48 0 0 1 48 48" stroke="#FF6B2C" stroke-width="2" fill="none" opacity=".3"/>
-          <circle cx="100" cy="178" r="5" fill="#FF6B2C"/>
-          <rect x="0" y="98" width="28" height="14" rx="3" fill="#302C28"/>
-          <rect x="172" y="98" width="28" height="14" rx="3" fill="#302C28"/>
-        </svg>
-        <p class="device-dim mono">85 × 55 × 28 mm · 설계 목표</p>
-        <div class="spec-tbl">
-          <div class="spec-row"><span class="k">측위</span><span class="v mono">GPS + BLE</span></div>
-          <div class="spec-row"><span class="k">방수·방진</span><span class="v mono">방수형 IP67 · 실내형 IP54</span></div>
-          <div class="spec-row"><span class="k">단말기 전원</span><span class="v mono">장비 전원 + 백업 배터리</span></div>
-          <div class="spec-row"><span class="k">비콘 태그 배터리</span><span class="v mono">3~5년</span></div>
-          <div class="spec-row"><span class="k">통신 주기</span><span class="v mono">5초</span></div>
-          <div class="spec-row"><span class="k">위치 정확도</span><span class="v mono">구역 단위</span></div>
-          <div class="spec-row"><span class="k">부착 방식</span><span class="v mono">접착 · 드릴 없음</span></div>
-          <div class="spec-row"><span class="k">동작 온도</span><span class="v mono">-30°C ~ 65°C</span></div>
-        </div>
-        <div class="device-cap">
-          <span><b>동력 장비</b> 전원형 단말기 · 접착</span>
-          <span><b>비동력 장비</b> 비콘 태그 · 접착</span>
-          <span><b>인증</b> KC 전파인증 후 납품</span>
-        </div>
-      </div>
-      <div>
+    <div class="hw">
+      <figure class="hw-fig">
+        <svg viewBox="0 0 640 440" role="img" aria-label="RS-T1W 전원형 단말기와 전원 모듈 도해">
+<defs>
+<linearGradient id="hw-t-front" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#44413E"/><stop offset="1" stop-color="#2A2826"/></linearGradient>
+<linearGradient id="hw-t-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#65625E"/><stop offset="1" stop-color="#484542"/></linearGradient>
+<linearGradient id="hw-t-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22201E"/><stop offset="1" stop-color="#32302E"/></linearGradient>
+<linearGradient id="hw-t-cap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef0ee"/><stop offset="1" stop-color="#b9bfbd"/></linearGradient>
+<filter id="hw-soft" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<ellipse cx="310" cy="298" rx="150" ry="18" fill="#000" opacity=".18" filter="url(#hw-soft)"/>
+<path d="M176 280 L200 280 L200 292 L180 292 Q172 292 172 286 Q172 280 176 280 Z" fill="#33312E"/>
+<ellipse cx="184" cy="286" rx="5" ry="3" fill="#A4A19E"/>
+<path d="M440 232 L456 222 Q462 220 462 226 Q462 232 456 236 L440 246 Z" fill="#252422"/>
+<ellipse cx="452" cy="230" rx="4" ry="2.4" fill="#A4A19E"/>
+<path d="M200 236 L380 236 L380 284 Q380 292 372 292 L208 292 Q200 292 200 284 Z" fill="url(#hw-t-front)"/>
+<path d="M380 236 L440 196 L440 244 Q440 250 434 254 L380 290 Z" fill="url(#hw-t-side)"/>
+<path d="M200 236 L260 196 L440 196 L380 236 Z" fill="url(#hw-t-top)" stroke="#777470" stroke-width="1"/>
+<path d="M228 230 L270 202 L420 202 L378 230 Z" fill="url(#hw-t-cap)"/>
+<path d="M228 230 L378 230 L420 202" fill="none" stroke="#8b9391" stroke-width="1.2"/>
+<path d="M246 224 L276 206 L330 206" fill="none" stroke="#fff" stroke-width="2.5" opacity=".7" stroke-linecap="round"/>
+<text x="214" y="262" fill="#f1f3f2" font-family="IBM Plex Sans KR, sans-serif" font-weight="700" font-size="15" letter-spacing="1">RAMP·SIGHT</text>
+<text x="214" y="280" fill="#FF6B2C" font-family="IBM Plex Sans KR, sans-serif" font-weight="600" font-size="11">RS-T1W</text>
+<circle cx="350" cy="262" r="3.6" fill="#4fd17a"/><circle cx="350" cy="262" r="7" fill="#4fd17a" opacity=".25"/>
+<circle cx="364" cy="262" r="3.6" fill="#3d9cf0"/>
+<path d="M424 250 C446 244 456 260 470 286" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+<rect x="414" y="244" width="14" height="12" rx="3" fill="#44423F" transform="rotate(-34 421 250)"/>
+<path d="M462 286 L520 286 L520 318 Q520 322 516 322 L466 322 Q462 322 462 318 Z" fill="#312F2D"/>
+<path d="M462 286 L478 276 L536 276 L520 286 Z" fill="#524F4C"/>
+<path d="M520 286 L536 276 L536 308 L520 322 Z" fill="#211F1D"/>
+<text x="468" y="302" fill="#FF6B2C" font-family="IBM Plex Sans KR, sans-serif" font-weight="600" font-size="9">PWR</text>
+<text x="468" y="314" fill="#A6A39F" font-family="IBM Plex Sans KR, sans-serif" font-size="8">9–100V</text>
+<path d="M530 312 C548 320 556 336 560 352" fill="none" stroke="#d23b2f" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M528 316 C538 330 536 346 530 362" fill="none" stroke="#1d1d1d" stroke-width="3.5" stroke-linecap="round"/>
+<rect x="548" y="328" width="12" height="22" rx="3" fill="#272523" transform="rotate(-20 554 339)"/>
+<rect x="551" y="334" width="6" height="9" rx="1" fill="#d23b2f" transform="rotate(-20 554 339)"/>
+<circle cx="562" cy="358" r="5" fill="none" stroke="#c8a24a" stroke-width="2.5"/>
+<circle cx="528" cy="368" r="5" fill="none" stroke="#c8a24a" stroke-width="2.5"/>
+<g stroke="#6F6961" stroke-width="1"><line x1="200" y1="318" x2="380" y2="318"/><line x1="200" y1="312" x2="200" y2="324"/><line x1="380" y1="312" x2="380" y2="324"/>
+<line x1="186" y1="236" x2="186" y2="276"/><line x1="180" y1="236" x2="192" y2="236"/></g>
+<text class="hwl2" x="290" y="338" text-anchor="middle">85 mm</text>
+<text class="hwl2" x="178" y="258" text-anchor="end">28 mm</text>
+<text class="hwl2" x="424" y="186">55 mm</text>
+<path class="hwc" d="M330 212 L330 90 L360 90"/><circle class="hwd" cx="330" cy="212" r="3.5"/>
+<text class="hwl" x="366" y="86">안테나 내장 덮개</text>
+<text class="hwl2" x="366" y="104">GNSS · LTE-M · BLE, 돌출 없음</text>
+<path class="hwc" d="M184 286 L120 286 L120 130"/><circle class="hwd" cx="184" cy="286" r="3.5"/>
+<text class="hwl" x="40" y="104">접착 고정 · 드릴 없음</text>
+<text class="hwl2" x="40" y="122">VHB 테이프 + 낙하 방지 줄</text>
+<path class="hwc" d="M357 272 L357 380 L320 380"/><circle class="hwd" cx="357" cy="262" r="3.5"/>
+<text class="hwl" x="314" y="385" text-anchor="end">상태 LED</text>
+<text class="hwl2" x="314" y="403" text-anchor="end">위성 수신 · 통신</text>
+<path class="hwc" d="M536 290 L590 290 L590 250"/><circle class="hwd" cx="536" cy="290" r="3.5"/>
+<text class="hwl" x="620" y="220" text-anchor="end">전원 모듈 (운전석)</text>
+<text class="hwl2" x="620" y="238" text-anchor="end">9~100V 변환 · 퓨즈 2A</text>
+</svg>
+        <figcaption><span class="mono">RS-T1W</span> 전원형 단말기 · 방수형 <em>85 × 55 × 28 mm · 설계 목표</em></figcaption>
+      </figure>
+      <div class="hw-txt">
         <p class="kicker">하드웨어</p>
-        <h2 style="font-size:clamp(21px,2.4vw,28px);">신용카드 크기 하나로 끝.</h2>
-        <p style="color:var(--ink-dim);font-size:15.5px;line-height:1.78;margin:0 0 20px;">
-          동력 장비에는 장비 전원으로 동작하는 단말기를 붙입니다. 구멍을 뚫지 않고 접착으로
-          고정하며, 시동을 끄면 장비 배터리를 쓰지 않습니다. 전원이 없는 돌리나 견인봉에는
-          3~5년 가는 비콘 태그를 붙이고, 끄는 토잉카의 단말기가 위치를 대신 알려줍니다.
-        </p>
-        <p style="color:var(--ink-dim);font-size:15.5px;line-height:1.78;margin:0;">
-          지하·터널 구간은 GPS가 끊기는 지점에 벽면 비콘 스캐너를 설치해 구역 단위
-          위치로 보완합니다.
-        </p>
+        <h2>신용카드 크기 하나로 끝.</h2>
+        <p>동력 장비에는 장비 전원으로 동작하는 단말기를 붙입니다. 구멍을 뚫지 않고 접착으로 고정하며, 시동을 끄면 장비 배터리를 쓰지 않습니다. 전원이 없는 돌리나 견인봉에는 3~5년 가는 비콘 태그를 붙이고, 끄는 토잉카의 단말기가 위치를 대신 알려줍니다.</p>
+        <p>지하·터널 구간은 GPS가 끊기는 지점에 벽면 비콘 스캐너를 설치해 구역 단위 위치로 보완합니다.</p>
+        <div class="hw-specs">
+          <div><span class="k">측위</span><b class="mono">GPS + BLE</b></div>
+          <div><span class="k">통신 주기</span><b class="mono">5초</b></div>
+          <div><span class="k">위치 정확도</span><b class="mono">구역 단위</b></div>
+          <div><span class="k">방수·방진</span><b class="mono">IP67 · 실내형 IP54</b></div>
+          <div><span class="k">단말기 전원</span><b class="mono">장비 전원 + 백업 배터리</b></div>
+          <div><span class="k">비콘 태그 배터리</span><b class="mono">3~5년</b></div>
+          <div><span class="k">부착 방식</span><b class="mono">접착 · 드릴 없음</b></div>
+          <div><span class="k">동작 온도</span><b class="mono">-30°C ~ 65°C</b></div>
+        </div>
+        <div class="hw-chips">
+          <span><b>동력 장비</b>전원형 단말기 · 접착</span>
+          <span><b>비동력 장비</b>비콘 태그 · 접착</span>
+          <span><b>인증</b>KC 전파인증 후 납품</span>
+        </div>
       </div>
     </div>
 
