@@ -141,6 +141,58 @@ h2{font-size:clamp(24px,3vw,34px);line-height:1.3;font-weight:700;letter-spacing
 .step.hot .t{font-weight:600;color:var(--ink);}
 .step .m{font-size:13px;color:var(--ink-mute);white-space:nowrap;}
 .step.hot .m{color:var(--amber);font-weight:600;}
+.fl2{position:relative;max-width:980px;margin:0 auto;}
+.fl2-ax{display:grid;grid-template-columns:minmax(0,1fr) 330px;padding:0 20px 10px 76px;font-size:12.5px;color:var(--ink-mute);letter-spacing:.02em;}
+.fl2-ax span:last-child{display:flex;align-items:center;gap:8px;}
+.fl2-ax em{font-style:normal;font-variant-numeric:tabular-nums;}
+.fl2-ax i{flex:1;height:1px;background:var(--line);}
+.fs{position:relative;display:grid;grid-template-columns:30px 34px minmax(0,1fr) 330px;align-items:center;column-gap:6px;padding:15px 20px 15px 6px;border-radius:10px;border:1px solid transparent;}
+.fs+.fs{margin-top:4px;}
+.fs::before{content:"";position:absolute;left:20px;top:-5px;bottom:-5px;width:2px;background:var(--line);}
+.fl2 .fs:nth-child(2)::before{top:50%;}
+.fl2 .fs:last-child::before{bottom:50%;}
+.fs .nd{position:relative;z-index:1;justify-self:center;width:11px;height:11px;border-radius:50%;background:var(--bg,#0F0E0D);border:2px solid #6F6961;box-sizing:border-box;}
+.fs .n{font-size:13px;font-weight:600;color:var(--ink-mute);padding-left:8px;}
+.fs .t{font-size:16.5px;color:var(--ink-dim);word-break:keep-all;line-height:1.45;}
+.fs.hot{background:linear-gradient(90deg,rgba(255,107,44,.11),rgba(255,107,44,.03) 55%,rgba(255,107,44,.05));border-color:rgba(255,107,44,.28);}
+.fs.hot::before{background:linear-gradient(180deg,#FF6B2C,#B8481A);}
+.fs.hot .nd{width:13px;height:13px;border-color:#FF6B2C;background:#FF6B2C;box-shadow:0 0 0 4px rgba(255,107,44,.18);}
+.fs.hot .n{color:#FF6B2C;}
+.fs.hot .t{color:var(--ink);font-weight:600;}
+.fs.ms{padding-top:11px;padding-bottom:11px;}
+.fs.ms .nd{width:13px;height:13px;border-radius:2px;transform:rotate(45deg);border-color:#F2EFEC;background:#F2EFEC;}
+.fs.ms .t{color:var(--ink);font-weight:700;letter-spacing:.01em;}
+.fs .mk{justify-self:end;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:4px 12px;}
+.tg{display:inline-block;margin-left:10px;font-size:11.5px;font-weight:700;letter-spacing:.04em;padding:2px 9px;border-radius:999px;vertical-align:2px;white-space:nowrap;}
+.tg-a{color:#FFB08A;background:rgba(255,107,44,.16);}
+.tg-b{color:#FFD2D2;background:rgba(217,80,47,.34);}
+.tg-c{color:#E8DCC6;background:rgba(201,193,182,.16);}
+.fs .du{display:grid;grid-template-columns:minmax(0,1fr) 96px;align-items:center;gap:14px;}
+.fs .bar{position:relative;height:8px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;}
+.fs .bar.none{background:none;}
+.fs .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;}
+.fs .bar .mx{background:rgba(163,154,142,.35);}
+.fs .bar .mn{background:#A39A8E;}
+.fs.hot .bar .mx{background:rgba(255,107,44,.38);}
+.fs.hot .bar .mn{background:#FF6B2C;}
+.fs .m{text-align:right;font-size:15.5px;font-weight:500;color:var(--ink-mute);white-space:nowrap;}
+.fs.hot .m{color:#FF6B2C;font-weight:700;font-size:16.5px;}
+.fsum{max-width:980px;margin:26px auto 0;display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:10px;}
+.fsum>div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;}
+.fsum .k{font-size:13px;color:var(--ink-mute);}
+.fsum b{font-size:22px;font-weight:700;color:var(--ink);line-height:1.25;}
+.fsum .d{font-size:12.5px;color:var(--ink-mute);line-height:1.5;}
+.fsum .big{border-color:rgba(255,107,44,.45);background:linear-gradient(135deg,rgba(255,107,44,.16),rgba(255,107,44,.04));}
+.fsum .big b{color:#FF6B2C;font-size:26px;}
+@media (max-width:760px){
+  .fl2-ax{display:none;}
+  .fs{grid-template-columns:30px 30px minmax(0,1fr);row-gap:8px;padding-right:14px;}
+  .fs .du{grid-column:3;grid-template-columns:minmax(0,1fr) auto;}
+  .fs .mk{display:none;}
+  .fs .t{font-size:15.5px;}
+  .tg{margin-left:6px;}
+  .fsum{grid-template-columns:1fr;}
+}
 .flow-foot{margin:22px 0 0;font-size:14.5px;color:var(--ink-mute);line-height:1.7;text-align:center;}
 .flow-head{text-align:center;max-width:680px;margin:0 auto 36px;}
 .flow-head p:not(.kicker){color:var(--ink-dim);font-size:15.5px;line-height:1.75;margin:0;word-break:keep-all;}
@@ -724,18 +776,23 @@ p{text-wrap:pretty}
       <h2>지금은 이렇게 장비를 찾습니다.</h2>
       <p>무전과 수기 일지로 굴러갑니다. 지출은 발생하지 않지만, 손실은 매일 생깁니다. 강조된 구간이 병목·이탈·재작업이 발생하는 지점입니다.</p>
     </div>
-    <div class="flow flow-h">
-        <div class="step"><span class="n mono">01</span><span class="t">항공기 블록온</span><span class="m mono">—</span></div>
-        <div class="step"><span class="n mono">02</span><span class="t">조업 리더가 필요 장비 확인</span><span class="m mono">2~3분</span></div>
-        <div class="step hot"><span class="n mono">03</span><span class="t">무전으로 장비 위치 호출</span><span class="m mono">3~5분</span></div>
-        <div class="step hot"><span class="n mono">04</span><span class="t">응답 대기 · 미응답 시 재호출</span><span class="m mono">1~4분</span></div>
-        <div class="step hot"><span class="n mono">05</span><span class="t">현장 직원이 자리를 비우고 직접 탐색</span><span class="m mono">5~15분</span></div>
-        <div class="step hot"><span class="n mono">06</span><span class="t">타 터미널·지하에 있으면 이동 대기</span><span class="m mono">5~15분</span></div>
-        <div class="step"><span class="n mono">07</span><span class="t">조업 착수</span><span class="m mono">—</span></div>
-        <div class="step hot"><span class="n mono">08</span><span class="t">작업 후 기억에 의존해 일지 작성</span><span class="m mono">2분</span></div>
-        <div class="step hot"><span class="n mono">09</span><span class="t">월말 항공사와 지연 귀책 대조</span><span class="m mono">월 4~8시간</span></div>
+    <div class="fl2">
+      <div class="fl2-ax" aria-hidden="true"><span>단계</span><span>편당 소요 시간 <em>0</em><i></i><em>15분</em></span></div>
+      <div class="fs ms"><span class="nd" aria-hidden="true"></span><span class="n mono">01</span><span class="t">항공기 블록온</span><span class="mk">시작</span></div>
+      <div class="fs "><span class="nd" aria-hidden="true"></span><span class="n mono">02</span><span class="t">조업 리더가 필요 장비 확인</span><span class="du"><span class="bar" aria-hidden="true"><i class="mx" style="width:20.0%"></i><i class="mn" style="width:13.3%"></i></span><b class="m mono">2~3분</b></span></div>
+      <div class="fs hot"><span class="nd" aria-hidden="true"></span><span class="n mono">03</span><span class="t">무전으로 장비 위치 호출 <b class="tg tg-a">병목</b></span><span class="du"><span class="bar" aria-hidden="true"><i class="mx" style="width:33.3%"></i><i class="mn" style="width:20.0%"></i></span><b class="m mono">3~5분</b></span></div>
+      <div class="fs hot"><span class="nd" aria-hidden="true"></span><span class="n mono">04</span><span class="t">응답 대기 · 미응답 시 재호출 <b class="tg tg-a">병목</b></span><span class="du"><span class="bar" aria-hidden="true"><i class="mx" style="width:26.7%"></i><i class="mn" style="width:6.7%"></i></span><b class="m mono">1~4분</b></span></div>
+      <div class="fs hot"><span class="nd" aria-hidden="true"></span><span class="n mono">05</span><span class="t">현장 직원이 자리를 비우고 직접 탐색 <b class="tg tg-b">이탈</b></span><span class="du"><span class="bar" aria-hidden="true"><i class="mx" style="width:100.0%"></i><i class="mn" style="width:33.3%"></i></span><b class="m mono">5~15분</b></span></div>
+      <div class="fs hot"><span class="nd" aria-hidden="true"></span><span class="n mono">06</span><span class="t">타 터미널·지하에 있으면 이동 대기 <b class="tg tg-a">병목</b></span><span class="du"><span class="bar" aria-hidden="true"><i class="mx" style="width:100.0%"></i><i class="mn" style="width:33.3%"></i></span><b class="m mono">5~15분</b></span></div>
+      <div class="fs ms"><span class="nd" aria-hidden="true"></span><span class="n mono">07</span><span class="t">조업 착수</span><span class="mk">착수</span></div>
+      <div class="fs hot"><span class="nd" aria-hidden="true"></span><span class="n mono">08</span><span class="t">작업 후 기억에 의존해 일지 작성 <b class="tg tg-c">재작업</b></span><span class="du"><span class="bar" aria-hidden="true"><i class="mx" style="width:13.3%"></i><i class="mn" style="width:13.3%"></i></span><b class="m mono">2분</b></span></div>
+      <div class="fs hot"><span class="nd" aria-hidden="true"></span><span class="n mono">09</span><span class="t">월말 항공사와 지연 귀책 대조 <b class="tg tg-c">재작업</b></span><span class="du"><span class="bar none" aria-hidden="true"></span><b class="m mono">월 4~8시간</b></span></div>
     </div>
-    <p class="flow-foot">장비 150대 규모 조업사 기준 연간 손실은 약 12억 7,500만원으로 추정됩니다.</p>
+    <div class="fsum">
+      <div><span class="k">손실이 생기는 단계</span><b class="mono">9단계 중 6곳</b><span class="d">병목 3 · 이탈 1 · 재작업 2</span></div>
+      <div><span class="k">블록온부터 착수까지 장비 탐색</span><b class="mono">편당 최대 39분</b><span class="d">03~06단계가 모두 겹칠 때 · 최소 14분</span></div>
+      <div class="big"><span class="k">연간 추정 손실</span><b class="mono">약 12억 7,500만원</b><span class="d">장비 150대 규모 조업사 기준</span></div>
+    </div>
   </div>
 </section>
 
