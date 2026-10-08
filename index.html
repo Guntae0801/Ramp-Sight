@@ -262,6 +262,30 @@ h2{font-size:clamp(24px,3vw,34px);line-height:1.3;font-weight:700;letter-spacing
 .hero .stripe>div:nth-child(2) .v{color:#FF6B2C;}
 .hero .stripe .l{margin-top:6px;font-size:13px;color:var(--ink-mute);}
 @media (max-width:760px){.hero .stripe{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.hero .stripe>div{padding:16px;}.hero .stripe>div::before{left:16px;}.hero-bg .pg{display:none;}}
+.loss2{margin-top:40px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);}
+.l2-sum{position:relative;padding:30px 30px 28px;background:radial-gradient(120% 90% at 0% 0%,rgba(255,107,44,.20),rgba(255,107,44,.04) 55%,transparent),#1C1916;border-right:1px solid var(--line);display:flex;flex-direction:column;}
+.l2-k{margin:0 0 14px;font-size:14px;font-weight:600;color:var(--ink-dim);}
+.l2-total{font-size:clamp(34px,4vw,46px);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:#FF6B2C;}
+.l2-sub{margin:10px 0 26px;font-size:13.5px;color:var(--ink-mute);}
+.l2-bar{display:flex;gap:3px;height:12px;margin-top:auto;}
+.l2-bar i{display:block;height:100%;border-radius:3px;}
+.c1{background:#FF6B2C;}.c2{background:#B8481A;}.c3{background:#8C847C;}
+.l2-leg{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px;}
+.l2-leg li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-dim);}
+.l2-leg li b{margin-left:auto;color:var(--ink);font-weight:600;}
+.sw{flex:none;width:10px;height:10px;border-radius:3px;}
+.l2-rows{display:flex;flex-direction:column;}
+.l2-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:16px;align-items:start;padding:22px 28px;border-bottom:1px solid var(--line-soft);}
+.l2-row:last-child{border-bottom:0;}
+.l2-row .sw{margin-top:7px;}
+.l2-row h4{margin:0 0 4px;font-size:16.5px;font-weight:700;color:var(--ink);}
+.l2-row p{margin:0 0 12px;font-size:14px;line-height:1.6;color:var(--ink-dim);word-break:keep-all;}
+.l2-f{display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
+.l2-f span{font-size:12.5px;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:7px;padding:4px 9px;white-space:nowrap;}
+.l2-f i{font-style:normal;font-size:13px;color:#FF6B2C;font-weight:700;}
+.l2-amt{font-size:19px;font-weight:700;color:var(--ink);white-space:nowrap;padding-top:1px;}
+.l2-note{grid-column:1/-1;margin:0;padding:14px 28px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.7;color:var(--ink-mute);background:rgba(15,14,13,.4);}
+@media (max-width:860px){.loss2{grid-template-columns:1fr;}.l2-sum{border-right:0;border-bottom:1px solid var(--line);padding:24px 20px;}.l2-row{padding:18px 20px;grid-template-columns:10px minmax(0,1fr);}.l2-amt{grid-column:2;}.l2-note{padding:14px 20px;}}
 .flow-foot{margin:22px 0 0;font-size:14.5px;color:var(--ink-mute);line-height:1.7;text-align:center;}
 .flow-head{text-align:center;max-width:680px;margin:0 auto 36px;}
 .flow-head p:not(.kicker){color:var(--ink-dim);font-size:15.5px;line-height:1.75;margin:0;word-break:keep-all;}
@@ -819,19 +843,20 @@ p{text-wrap:pretty}
     .loss .note{margin:12px 0 0;font-size:13px;color:var(--ink-mute);line-height:1.7;}
     @media(max-width:640px){.loss{padding:20px 18px;}.loss th:nth-child(2),.loss td:nth-child(2){display:none;}.loss tfoot .n{font-size:23px;}}
     </style>
-    <div class="loss">
-      <h3>장비 150대 조업사가 한 해에 잃는 돈</h3>
-      <p class="sub">세 가지 손실을 금액으로 환산한 추정치입니다.</p>
-      <table>
-        <thead><tr><th>손실 항목</th><th>산정 근거</th><th class="n">연간 손실</th></tr></thead>
-        <tbody>
-          <tr><td><b>인건비 손실</b>조업에 쓸 인력이 장비 탐색과 현장 이탈에 쓰입니다</td><td>탐색 15분 × 인력 2명 × 하루 90편 × 365일</td><td class="n">약 7억 5천만원</td></tr>
-          <tr><td><b>수주 포기 손실</b>지금 장비로 신규 조업이 가능한지 답할 데이터가 없습니다</td><td>연 156편 수주 포기 × 편당 약 290만원</td><td class="n">약 4억 5천만원</td></tr>
-          <tr><td><b>지연 귀책 손실</b>조업이 늦으면 근거 없이 귀책 비용을 떠안습니다</td><td>월 6건 × 편당 100만원 + 대응비</td><td class="n">약 7,500만원</td></tr>
-        </tbody>
-        <tfoot><tr><td colspan="2">연간 손실 합계</td><td class="n">약 12억 7,500만원</td></tr></tfoot>
-      </table>
-      <p class="note">장비 100대 조업사 기준 추정치(인건비 5억 · 수주 포기 3억 · 지연 귀책 5천만원)를 장비 대수에 비례해 150대로 환산했습니다. 실제 금액은 조업 편수와 계약 조건에 따라 달라집니다.</p>
+    <div class="loss2">
+      <div class="l2-sum">
+        <p class="l2-k">장비 150대 조업사가 한 해에 잃는 돈</p>
+        <b class="l2-total mono">약 12억 7,500만원</b>
+        <p class="l2-sub">세 가지 손실을 금액으로 환산한 추정치입니다.</p>
+        <div class="l2-bar" role="img" aria-label="인건비 59%, 수주 포기 35%, 지연 귀책 6%"><i class="c1" style="width:59%"></i><i class="c2" style="width:35%"></i><i class="c3" style="width:6%"></i></div>
+        <ul class="l2-leg"><li><span class="sw c1"></span>인건비<b class="mono">59%</b></li><li><span class="sw c2"></span>수주 포기<b class="mono">35%</b></li><li><span class="sw c3"></span>지연 귀책<b class="mono">6%</b></li></ul>
+      </div>
+      <div class="l2-rows">
+        <div class="l2-row"><span class="sw c1"></span><div class="l2-main"><h4>인건비 손실</h4><p>조업에 쓸 인력이 장비 탐색과 현장 이탈에 쓰입니다</p><div class="l2-f mono" aria-label="산정 근거"><span>탐색 15분</span><i>×</i><span>인력 2명</span><i>×</i><span>하루 90편</span><i>×</i><span>365일</span></div></div><b class="l2-amt mono">약 7억 5천만원</b></div>
+        <div class="l2-row"><span class="sw c2"></span><div class="l2-main"><h4>수주 포기 손실</h4><p>지금 장비로 신규 조업이 가능한지 답할 데이터가 없습니다</p><div class="l2-f mono" aria-label="산정 근거"><span>연 156편 수주 포기</span><i>×</i><span>편당 약 290만원</span></div></div><b class="l2-amt mono">약 4억 5천만원</b></div>
+        <div class="l2-row"><span class="sw c3"></span><div class="l2-main"><h4>지연 귀책 손실</h4><p>조업이 늦으면 근거 없이 귀책 비용을 떠안습니다</p><div class="l2-f mono" aria-label="산정 근거"><span>월 6건</span><i>×</i><span>편당 100만원</span><i>+</i><span>대응비</span></div></div><b class="l2-amt mono">약 7,500만원</b></div>
+      </div>
+      <p class="l2-note">장비 100대 조업사 기준 추정치(인건비 5억 · 수주 포기 3억 · 지연 귀책 5천만원)를 장비 대수에 비례해 150대로 환산했습니다. 실제 금액은 조업 편수와 계약 조건에 따라 달라집니다.</p>
     </div>
   </div>
 </section>
