@@ -216,6 +216,52 @@ h2{font-size:clamp(24px,3vw,34px);line-height:1.3;font-weight:700;letter-spacing
 .lineup .lu{border-radius:12px;transition:border-color .2s,transform .2s;}
 .lineup .lu:hover{border-color:rgba(255,107,44,.45);transform:translateY(-2px);}
 @media (max-width:900px){.hw{grid-template-columns:1fr;}.hw-fig figcaption em{margin-left:0;}}
+.pcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.pc{position:relative;display:flex;flex-direction:column;background:linear-gradient(180deg,#1E1B18,#161412);border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;overflow:hidden;transition:border-color .2s,transform .2s;}
+.pc::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#FF6B2C,rgba(255,107,44,0));}
+.pc:hover{border-color:rgba(255,107,44,.45);transform:translateY(-2px);}
+.pc-top{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.pc-ic{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:rgba(255,107,44,.12);border:1px solid rgba(255,107,44,.3);color:#FF6B2C;}
+.pc-ic svg{width:20px;height:20px;}
+.pc-tag{font-size:14px;font-weight:800;color:var(--amber);letter-spacing:.02em;}
+.pc-no{margin-left:auto;font-size:28px;font-weight:700;color:rgba(242,239,236,.09);line-height:1;}
+.pc h3{margin:0 0 10px;font-size:18.5px;font-weight:700;line-height:1.4;color:var(--ink);word-break:keep-all;letter-spacing:-.01em;}
+.pc p{margin:0 0 16px;font-size:14.5px;line-height:1.72;color:var(--ink-dim);word-break:keep-all;}
+.pc-sym{align-self:flex-start;font-size:12.5px;font-weight:700;color:#FFB08A;background:rgba(255,107,44,.12);border-radius:999px;padding:5px 12px;margin-bottom:18px;}
+.pc-loss{margin-top:auto;padding-top:16px;border-top:1px solid var(--line-soft);display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;}
+.pc-loss .k{grid-column:1/-1;font-size:12.5px;color:var(--ink-mute);}
+.pc-loss b{grid-column:1/-1;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
+.pc-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;}
+.pc-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#B8481A,#FF6B2C);}
+.pc-sh{font-size:12px;color:var(--ink-mute);white-space:nowrap;}
+@media (max-width:900px){.pcards{grid-template-columns:1fr;}}
+.hero{isolation:isolate;padding-left:clamp(20px,4vw,32px);padding-right:clamp(20px,4vw,32px);}
+.hero-bg{position:absolute;left:50%;top:0;width:100vw;height:clamp(560px,62vw,760px);transform:translateX(-50%);z-index:-1;pointer-events:none;overflow:hidden;}
+.hb-glow{position:absolute;left:50%;top:-14%;width:min(1100px,120vw);height:80%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,107,44,.20),rgba(255,107,44,.06) 55%,transparent);filter:blur(10px);}
+.hb-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(242,239,236,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(242,239,236,.045) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(70% 60% at 50% 38%,#000 20%,transparent 75%);mask-image:radial-gradient(70% 60% at 50% 38%,#000 20%,transparent 75%);}
+.hero-bg .pg{position:absolute;width:9px;height:9px;border-radius:50%;background:#FF6B2C;box-shadow:0 0 0 3px rgba(255,107,44,.18);}
+.hero-bg .pg::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(255,107,44,.55);animation:hbping 3.2s ease-out infinite;}
+.hero-bg .pg.p2::after{animation-delay:.8s}.hero-bg .pg.p3::after{animation-delay:1.6s}.hero-bg .pg.p4::after{animation-delay:2.4s}
+.hero-bg .pg.idle{background:transparent;border:2px solid #6F6961;box-shadow:none;}
+.hero-bg .pg.idle::after{display:none;}
+@keyframes hbping{0%{transform:scale(.6);opacity:.9}100%{transform:scale(4.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.hero-bg .pg::after{animation:none;opacity:.4}}
+.hero .eyebrow{border-radius:999px;padding:7px 16px;background:rgba(255,107,44,.10);border:1px solid rgba(255,107,44,.35);backdrop-filter:blur(6px);}
+.hero .eyebrow .dot{box-shadow:0 0 0 4px rgba(255,107,44,.2);animation:hbdot 2s ease-in-out infinite;}
+@keyframes hbdot{50%{box-shadow:0 0 0 7px rgba(255,107,44,0)}}
+.hero h1 em{background:linear-gradient(92deg,#FF8A4C,#FF6B2C 45%,#F2541B);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero .btn{border-radius:10px;padding-left:24px;padding-right:24px;}
+.hero .btn:not(.btn-line){box-shadow:0 8px 28px -10px rgba(255,107,44,.75);}
+.hero .btn-line{background:rgba(26,24,22,.6);backdrop-filter:blur(6px);}
+.hero .stripe{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border:0;margin-top:64px;}
+.hero .stripe>div{position:relative;padding:20px 22px 18px;border:1px solid var(--line);border-left:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(31,28,25,.85),rgba(22,20,18,.85));backdrop-filter:blur(6px);overflow:hidden;}
+.hero .stripe>div:first-child{border-left:1px solid var(--line);}
+.hero .stripe>div::before{content:"";position:absolute;left:22px;top:0;width:28px;height:2px;border-radius:2px;background:#FF6B2C;}
+.hero .stripe>div>div{padding:0;border:0;}
+.hero .stripe .v{font-size:clamp(22px,2.5vw,30px);font-weight:700;line-height:1.2;}
+.hero .stripe>div:nth-child(2) .v{color:#FF6B2C;}
+.hero .stripe .l{margin-top:6px;font-size:13px;color:var(--ink-mute);}
+@media (max-width:760px){.hero .stripe{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.hero .stripe>div{padding:16px;}.hero .stripe>div::before{left:16px;}.hero-bg .pg{display:none;}}
 .flow-foot{margin:22px 0 0;font-size:14.5px;color:var(--ink-mute);line-height:1.7;text-align:center;}
 .flow-head{text-align:center;max-width:680px;margin:0 auto 36px;}
 .flow-head p:not(.kicker){color:var(--ink-dim);font-size:15.5px;line-height:1.75;margin:0;word-break:keep-all;}
@@ -580,6 +626,7 @@ p{text-wrap:pretty}
 </nav>
 
 <header class="hero wrap" id="top">
+  <div class="hero-bg" aria-hidden="true"><span class="hb-glow"></span><span class="hb-grid"></span><i class="pg" style="left:14%;top:30%"></i><i class="pg p2" style="left:84%;top:22%"></i><i class="pg p3" style="left:76%;top:62%"></i><i class="pg p4" style="left:22%;top:66%"></i><i class="pg idle" style="left:9%;top:48%"></i><i class="pg idle" style="left:90%;top:44%"></i></div>
   <span class="eyebrow"><span class="dot"></span>공항 지상조업 장비 전용</span>
   <h1>장비 찾는 시간을,<br><em>붙이는 단말기 하나로 없앱니다</em></h1>
   <p class="lead">
@@ -733,31 +780,28 @@ p{text-wrap:pretty}
       <h2>장비는 있는데, 어디 있는지를 모릅니다.</h2>
       <p>대장에는 150대가 있습니다. 그런데 지금 몇 대가 놀고 몇 대가 작업 중인지 답할 수 있는 사람이 없습니다. 여기서 세 가지 손실이 동시에 발생합니다.</p>
     </div>
-    <div class="problems">
-      <div class="prob">
-        <div class="tag">운영</div>
-        <div>
-          <h3>장비를 찾는 데 시간이 든다</h3>
-          <p>무전으로 부르고, 응답을 기다리고, 없으면 현장 직원이 자리를 비우고 직접 찾으러 갑니다. 장비를 찾는 동안 조업 인력 공백까지 생깁니다.</p>
-          <span class="cost">편당 15~40분 탐색·대기</span>
-        </div>
-      </div>
-      <div class="prob">
-        <div class="tag">투자 판단</div>
-        <div>
-          <h3>가동률 데이터가 없어 증설을 못 정한다</h3>
-          <p>장비를 더 사달라는 품의는 "가동률 근거가 없다"로 반려됩니다. 반대로 놀고 있는 장비가 몇 대인지도 모릅니다.</p>
-          <span class="cost">유휴 장비 파악 불가</span>
-        </div>
-      </div>
-      <div class="prob">
-        <div class="tag">계약</div>
-        <div>
-          <h3>지연 귀책을 반박할 근거가 없다</h3>
-          <p>항공사는 시스템에 자동 기록된 시각을 제시합니다. 조업사는 작업이 끝난 뒤 기억으로 쓴 일지를 냅니다. 증거의 급이 다릅니다.</p>
-          <span class="cost">SLA 감액 · 계약 갱신 위험</span>
-        </div>
-      </div>
+    <div class="pcards">
+      <article class="pc">
+        <div class="pc-top"><span class="pc-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8v3l2 1.5"/></svg></span><span class="pc-tag">운영</span><span class="pc-no mono">01</span></div>
+        <h3>장비를 찾는 데 시간이 든다</h3>
+        <p>무전으로 부르고, 응답을 기다리고, 없으면 현장 직원이 자리를 비우고 직접 찾으러 갑니다. 장비를 찾는 동안 조업 인력 공백까지 생깁니다.</p>
+        <span class="pc-sym">편당 15~40분 탐색·대기</span>
+        <div class="pc-loss"><span class="k">인건비 손실 · 연간</span><b class="mono">약 7억 5천만원</b><span class="pc-bar" aria-hidden="true"><i style="width:59%"></i></span><span class="pc-sh mono">전체 손실의 59%</span></div>
+      </article>
+      <article class="pc">
+        <div class="pc-top"><span class="pc-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M7 16v-4M12 16V8M17 16v-6"/><path d="M15.5 4.5l3 3M18.5 4.5l-3 3"/></svg></span><span class="pc-tag">투자 판단</span><span class="pc-no mono">02</span></div>
+        <h3>가동률 데이터가 없어 증설을 못 정한다</h3>
+        <p>장비를 더 사달라는 품의는 "가동률 근거가 없다"로 반려됩니다. 반대로 놀고 있는 장비가 몇 대인지도 모릅니다.</p>
+        <span class="pc-sym">유휴 장비 파악 불가</span>
+        <div class="pc-loss"><span class="k">수주 포기 손실 · 연간</span><b class="mono">약 4억 5천만원</b><span class="pc-bar" aria-hidden="true"><i style="width:35%"></i></span><span class="pc-sh mono">전체 손실의 35%</span></div>
+      </article>
+      <article class="pc">
+        <div class="pc-top"><span class="pc-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10.5a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5z"/><path d="M14 3.5V8h4M9.5 13h5M9.5 16.5h3"/></svg></span><span class="pc-tag">계약</span><span class="pc-no mono">03</span></div>
+        <h3>지연 귀책을 반박할 근거가 없다</h3>
+        <p>항공사는 시스템에 자동 기록된 시각을 제시합니다. 조업사는 작업이 끝난 뒤 기억으로 쓴 일지를 냅니다. 증거의 급이 다릅니다.</p>
+        <span class="pc-sym">SLA 감액 · 계약 갱신 위험</span>
+        <div class="pc-loss"><span class="k">지연 귀책 손실 · 연간</span><b class="mono">약 7,500만원</b><span class="pc-bar" aria-hidden="true"><i style="width:6%"></i></span><span class="pc-sh mono">전체 손실의 6%</span></div>
+      </article>
     </div>
     <style>
     .loss{margin-top:40px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:26px 28px 22px;}
