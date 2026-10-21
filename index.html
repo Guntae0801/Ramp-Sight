@@ -1236,7 +1236,9 @@ body .hw{grid-template-columns:minmax(0,1fr);}body .hw-txt{display:grid;grid-tem
     var email=(inp.value||'').trim(); if(!email) return;
     btn.disabled=true; btn.textContent='보내는 중…';
     fetch(URL,{method:'POST',headers:{'apikey':KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:email})})
-      .then(function(r){ if(!r.ok) throw new Error(r.status); btn.textContent='접수되었습니다'; inp.value=''; })
+      .then(function(r){ if(!r.ok) throw new Error(r.status); btn.textContent='접수되었습니다'; inp.value='';
+        fetch('https://formsubmit.co/ajax/zzzzpgt@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:email,_subject:'[RAMP·SIGHT] 새 데모 요청',_template:'table',_captcha:'false'})}).catch(function(){});
+      })
       .catch(function(){ btn.disabled=false; btn.textContent='전송 실패 · 다시 시도'; });
   });
 })();
