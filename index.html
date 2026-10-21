@@ -1208,7 +1208,7 @@ body .hw{grid-template-columns:minmax(0,1fr);}body .hw-txt{display:grid;grid-tem
     <p class="kicker">문의</p>
     <h2>보유 장비 목록만 주시면 됩니다.</h2>
     <p>어느 장비에 어떤 방식으로 붙는지, 시범 운영 범위와 일정을 정리해 회신드립니다.</p>
-    <form class="form" onsubmit="event.preventDefault();this.querySelector('.btn').textContent='접수되었습니다';">
+    <form class="form" id="demo-form">
       <input type="email" placeholder="업무용 이메일" aria-label="업무용 이메일" required>
       <button class="btn" type="submit">데모 요청</button>
     </form>
@@ -1225,5 +1225,21 @@ body .hw{grid-template-columns:minmax(0,1fr);}body .hw-txt{display:grid;grid-tem
 </footer>
 
 
+<script>
+(function(){
+  var f=document.getElementById('demo-form'); if(!f) return;
+  var URL='https://tpwtdybvexldvgobdslp.supabase.co/rest/v1/demo_requests';
+  var KEY='sb_publishable__bBqP0p92YmvPR_wpYbeaQ_BpXWHVIl';
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=f.querySelector('.btn'), inp=f.querySelector('input[type=email]');
+    var email=(inp.value||'').trim(); if(!email) return;
+    btn.disabled=true; btn.textContent='보내는 중…';
+    fetch(URL,{method:'POST',headers:{'apikey':KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:email})})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); btn.textContent='접수되었습니다'; inp.value=''; })
+      .catch(function(){ btn.disabled=false; btn.textContent='전송 실패 · 다시 시도'; });
+  });
+})();
+</script>
 </body>
 </html>
